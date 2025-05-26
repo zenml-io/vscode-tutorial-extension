@@ -7,8 +7,8 @@ node_modules
 **/runSuccess*.txt
 **/runError*.txt
 
-tutorials/pipelines/backup
-.devcontainer/tutorials/pipelines/backup
+pipelinesBackup/
+.devcontainer/pipelinesBackup/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
