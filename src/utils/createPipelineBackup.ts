@@ -1,10 +1,10 @@
 import { cp } from "node:fs/promises";
 import * as vscode from "vscode";
 
-export default async function createPipelineBackup(tutorialsUri: vscode.Uri) {
-  const tutorialsPath = tutorialsUri.fsPath;
+export default async function createPipelineBackup(extensionUri: vscode.Uri) {
+  const extensionPath = extensionUri.fsPath;
   try {
-    await cp(`${tutorialsPath}/pipelines`, `${tutorialsPath}/pipelinesBackup`, {
+    await cp(`${extensionPath}/pipelines`, `${extensionPath}/pipelinesBackup`, {
       recursive: true,
       force: false,
     });

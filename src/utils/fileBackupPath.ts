@@ -1,9 +1,9 @@
 import { existsSync } from "fs";
 
 export default function fileBackupPath(filePath: string) {
-  const backupPath = filePath.replace("/sections/", "/sectionsBackup/");
+  const backupPath = filePath.replace("/pipelines/", "/pipelinesBackup/");
 
-  if (backupPath.includes("/sectionsBackup/") && existsSync(backupPath)) {
+  if (backupPath.includes("/pipelinesBackup/") && existsSync(backupPath)) {
     return backupPath;
   } else {
     return undefined;
