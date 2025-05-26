@@ -1,0 +1,22 @@
+{
+  "name": "zenml-color-theme",
+  "displayName": "ZenML Color Theme",
+  "description": "VS Code theme matching ZenML Dashboard",
+  "version": "0.0.1",
+  "publisher": "ZenML",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "contributes": {
+    "themes": [
+      {
+        "label": "ZenML",
+        "uiTheme": "vs",
+        "path": "./ZenML-color-theme.json"
+      }
+    ]
+  }
+}

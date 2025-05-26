@@ -1,0 +1,453 @@
+/* ensure body/main are pushed below header */
+body,
+main {
+  margin: 0;
+  padding: 0;
+}
+main {
+  padding: calc(12px + 32px) 24px 24px; /* header‑height + some breathing room */
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-bottom: 15px;
+}
+
+p,
+ul,
+ol {
+  line-height: 1.3rem;
+  margin-bottom: 10px;
+}
+
+img {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+header {
+  background-color: var(--vscode-editor-background);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  padding: 75px 40px;
+}
+
+/* tutorial header */
+.tutorial-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  margin-top: 8px;
+  background: var(--vscode-editor-background);
+  border-bottom: 1px solid var(--vscode-input-border);
+  z-index: 10;
+}
+
+/* nav group */
+.tutorial-nav {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1 1 auto;
+  min-width: 0; /* allow title to truncate */
+}
+
+/* header sectiontitle */
+.tutorial-title {
+  flex: 1 1 0;
+  text-align: center;
+  overflow: hidden;
+}
+
+.tutorial-title h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--vscode-foreground);
+  margin: 0;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+/* description */
+.tutorial-description {
+  margin: 0;
+  color: var(--vscode-foreground);
+  font-size: 14px;
+  font-weight: 400;
+  font-style: italic;
+}
+
+/* buttons */
+.nav-button {
+  background: var(--vscode-button-background);
+  color: var(--vscode-button-foreground);
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  width: 40px;
+  max-width: 40px;
+  justify-content: center;
+  flex-shrink: 1;
+}
+
+.nav-button:hover:not(.disabled) {
+  background: var(--vscode-button-hoverBackground);
+  transform: translateY(-1px);
+}
+
+.nav-button.disabled {
+  background: var(--vscode-button-secondaryBackground);
+  color: var(--vscode-button-secondaryForeground);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.hide {
+  display: none !important;
+}
+
+footer {
+  position: fixed;
+  bottom: 0px;
+  background-color: var(--vscode-editor-background);
+  margin-bottom: 0;
+  width: 100%;
+}
+
+#progress {
+  height: 4px;
+  background-color: var(--vscode-progressBar-background);
+}
+
+.arrow {
+  width: 100px;
+  height: 30px;
+}
+
+#next {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  height: 30px;
+}
+
+nav p {
+  flex-grow: 1;
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.tip {
+  border: 1px solid var(--vscode-button-secondaryHoverBackground);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-bottom: 30px;
+  margin: 40px 20px;
+}
+
+.tip > * {
+  margin-right: 30px;
+  margin-left: 30px;
+}
+
+.tip::before {
+  top: -30px;
+  margin: 0;
+  margin-bottom: 10px;
+  content: "💡 Tip";
+  display: block;
+  padding: 10px;
+  background-color: var(--vscode-button-secondaryBackground);
+  color: var(--vscode-button-secondaryForeground);
+}
+
+#zenml-connect fieldset {
+  border: none;
+  display: flex;
+  padding: 0;
+}
+
+#zenml-connect input {
+  flex-grow: 1;
+  border: 1px solid var(--vscode-input-border);
+}
+
+button#zenml-server-connect {
+  width: 100px;
+}
+
+.tip button {
+  width: auto;
+}
+
+/* Interactive Tutorial Enhancements */
+
+.run-pipeline-button {
+  background: linear-gradient(
+    135deg,
+    var(--vscode-button-background),
+    var(--vscode-button-hoverBackground)
+  );
+  border: none;
+  color: var(--vscode-button-foreground);
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 20px auto;
+  min-width: 180px;
+  justify-content: center;
+}
+
+.run-pipeline-button:hover {
+  background: linear-gradient(
+    135deg,
+    var(--vscode-button-hoverBackground),
+    var(--vscode-button-background)
+  );
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.run-pipeline-button:active {
+  transform: translateY(0);
+}
+
+.run-pipeline-button.running {
+  background: var(--vscode-progressBar-background);
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+.run-pipeline-button.completed {
+  background: var(--vscode-charts-green);
+  color: white;
+}
+
+.run-pipeline-button.failed {
+  background: var(--vscode-errorForeground);
+  color: white;
+}
+
+/* Loading Spinner */
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Success Checkmark */
+.checkmark {
+  color: var(--vscode-charts-green);
+  font-size: 18px;
+}
+
+/* Celebration Confetti - Explosion Style */
+.confetti {
+  position: fixed;
+  width: 12px;
+  height: 12px;
+  background: var(--vscode-charts-blue);
+  animation: confetti-fall 4s ease-in-out infinite;
+  z-index: 9999;
+  pointer-events: none; /* Don't interfere with user interactions */
+  border-radius: 2px; /* Slight rounding for better visibility */
+}
+
+/* Different confetti shapes */
+.confetti.square {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+}
+
+.confetti.circle {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.confetti.rectangle {
+  width: 12px;
+  height: 6px;
+  border-radius: 1px;
+}
+
+.confetti.triangle {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 10px solid var(--vscode-charts-blue);
+}
+
+.confetti.diamond {
+  width: 8px;
+  height: 8px;
+  transform: rotate(45deg);
+}
+
+/* Explosion animation keyframes */
+@keyframes confetti-explode {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--dx), var(--dy)) rotate(var(--rotation)) scale(0.3);
+  }
+}
+
+/* Flutter effect for some pieces */
+@keyframes confetti-flutter {
+  0%,
+  100% {
+    transform: translateX(0) rotateY(0deg);
+  }
+  25% {
+    transform: translateX(2px) rotateY(90deg);
+  }
+  50% {
+    transform: translateX(-2px) rotateY(180deg);
+  }
+  75% {
+    transform: translateX(1px) rotateY(270deg);
+  }
+}
+
+.confetti.flutter {
+  animation: confetti-flutter 0.8s ease-in-out infinite;
+}
+
+/* Pipeline Status */
+.pipeline-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 16px 0;
+  padding: 12px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.pipeline-status.initializing {
+  background: var(--vscode-inputValidation-warningBackground);
+  color: var(--vscode-inputValidation-warningForeground);
+}
+
+.pipeline-status.running {
+  background: var(--vscode-progressBar-background);
+  color: var(--vscode-button-foreground);
+}
+
+.pipeline-status.completed {
+  background: var(--vscode-charts-green);
+  color: white;
+}
+
+.pipeline-status.failed {
+  background: var(--vscode-errorBackground);
+  color: var(--vscode-errorForeground);
+}
+
+.pipeline-status.cached {
+  background: var(--vscode-charts-blue);
+  color: white;
+}
+
+/* Dashboard Link */
+.dashboard-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 16px 0;
+  padding: 12px;
+  background: var(--vscode-textBlockQuote-background);
+  border-left: 3px solid var(--vscode-charts-blue);
+  border-radius: 4px;
+}
+
+.dashboard-link a {
+  color: var(--vscode-textLink-foreground);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.dashboard-link a:hover {
+  color: var(--vscode-textLink-activeForeground);
+  text-decoration: underline;
+}
+
+.dashboard-link .codicon {
+  color: var(--vscode-charts-blue);
+}
+
+/* Content Layout */
+.content-header {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
+.content-info {
+  flex: 1;
+}

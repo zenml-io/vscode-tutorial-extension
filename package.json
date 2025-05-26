@@ -1,0 +1,80 @@
+{
+  "name": "zenml-codespace-tutorial",
+  "displayName": "ZenML Codespace Tutorial",
+  "repository": "https://github.com/zenml-io/vscode-tutorial",
+  "description": "Interactive ZenML pipeline tutorials for Codespaces",
+  "version": "0.0.1",
+  "publisher": "ZenML",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Education",
+    "Other"
+  ],
+  "keywords": [
+    "zenml",
+    "machine learning",
+    "mlops",
+    "tutorial",
+    "codespace",
+    "python"
+  ],
+  "icon": "media/zenml-icon.png",
+  "license": "Apache-2.0",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "vscode-test",
+    "buildExtension": "vsce package && mkdir -p .devcontainer/extensions && rm -f .devcontainer/extensions/zenml-codespace-tutorial* && mv zenml-codespace-tutorial* .devcontainer/extensions"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.7",
+    "@types/node": "^20.14.10",
+    "@types/vscode": "^1.90.0",
+    "@typescript-eslint/eslint-plugin": "^7.14.1",
+    "@typescript-eslint/parser": "^7.11.0",
+    "@vscode/test-cli": "^0.0.9",
+    "@vscode/test-electron": "^2.4.0",
+    "@vscode/vsce": "^3.1.0",
+    "eslint": "^8.57.0",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "@vscode/codicons": "^0.0.36",
+    "marked": "^13.0.1"
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "zenml.startTutorial",
+        "title": "Start ZenML Tutorial",
+        "category": "ZenML"
+      }
+    ],
+    "configuration": {
+      "title": "ZenML",
+      "properties": {
+        "zenml.dashboardUrl": {
+          "type": "string",
+          "default": "http://localhost:8080",
+          "description": "Base URL for the ZenML dashboard"
+        }
+      }
+    },
+    "themes": [
+      {
+        "label": "ZenML Color Theme",
+        "uiTheme": "vs",
+        "path": "./themes/ZenML-color-theme.json"
+      }
+    ]
+  }
+}
