@@ -3,10 +3,7 @@ import path from "path";
 import * as vscode from "vscode";
 import Tutorial from "./tutorial";
 import codeRunner from "./utils/codeRunner";
-import {
-  default as fileBackupPath,
-  default as fileHasBackup,
-} from "./utils/fileBackupPath";
+import { default as fileBackupPath, default as fileHasBackup } from "./utils/fileBackupPath";
 import getNonce from "./utils/getNonce";
 
 export default class TutorialOrchestrator {
@@ -128,8 +125,7 @@ export default class TutorialOrchestrator {
         throw new Error("Editor is not defined");
       }
 
-      const activeEditorIsCurrentEditor =
-        this._codePanel === vscode.window.activeTextEditor;
+      const activeEditorIsCurrentEditor = this._codePanel === vscode.window.activeTextEditor;
 
       if (!activeEditorIsCurrentEditor) {
         await vscode.window.showTextDocument(this._codePanel.document, {
@@ -176,8 +172,7 @@ export default class TutorialOrchestrator {
         throw new Error("No code panel available");
       }
 
-      const activeEditorIsCurrentEditor =
-        this._codePanel === vscode.window.activeTextEditor;
+      const activeEditorIsCurrentEditor = this._codePanel === vscode.window.activeTextEditor;
 
       if (!activeEditorIsCurrentEditor) {
         await vscode.window.showTextDocument(this._codePanel.document, {
@@ -255,18 +250,12 @@ export default class TutorialOrchestrator {
   private _saveProgress() {
     // Save completed tutorials to workspace state
     const completedArray = Array.from(this._completedTutorials);
-    this._context.workspaceState.update(
-      "zenml.completedTutorials",
-      completedArray
-    );
+    this._context.workspaceState.update("zenml.completedTutorials", completedArray);
   }
 
   private _loadProgress() {
     // Load completed tutorials from workspace state
-    const completed = this._context.workspaceState.get<number[]>(
-      "zenml.completedTutorials",
-      []
-    );
+    const completed = this._context.workspaceState.get<number[]>("zenml.completedTutorials", []);
     this._completedTutorials = new Set(completed);
   }
 
@@ -279,9 +268,9 @@ export default class TutorialOrchestrator {
     return `
       <div class="tutorial-header">
        <div class="tutorial-nav">
-          <button class="nav-button prev ${
-            isFirst ? "disabled" : ""
-          }" id="nav-previous" ${isFirst ? "disabled" : ""}>
+          <button class="nav-button prev ${isFirst ? "disabled" : ""}" id="nav-previous" ${
+      isFirst ? "disabled" : ""
+    }>
             <i class="codicon codicon-chevron-left"></i>
             <span>Prev</span>
           </button>
@@ -291,9 +280,9 @@ export default class TutorialOrchestrator {
               ${this._tutorial.currentSection.description}
             </p>
           </div>
-          <button class="nav-button next ${
-            isLast ? "disabled" : ""
-          }" id="nav-next" ${isLast ? "disabled" : ""}>
+          <button class="nav-button next ${isLast ? "disabled" : ""}" id="nav-next" ${
+      isLast ? "disabled" : ""
+    }>
             <i class="codicon codicon-chevron-right"></i>
             <span>Next</span>
           </button>
@@ -321,10 +310,7 @@ export default class TutorialOrchestrator {
     try {
       const document = await vscode.workspace.openTextDocument(filePath);
       this._currentlyDisplayingDocument = document;
-      this._codePanel = await vscode.window.showTextDocument(
-        document,
-        vscode.ViewColumn.Two
-      );
+      this._codePanel = await vscode.window.showTextDocument(document, vscode.ViewColumn.Two);
     } catch (error) {
       vscode.window.showErrorMessage(`Failed to open file: ${error}`);
     }
@@ -339,9 +325,7 @@ export default class TutorialOrchestrator {
           preserveFocus: false,
         })
         .then(() => {
-          return vscode.commands.executeCommand(
-            "workbench.action.closeActiveEditor"
-          );
+          return vscode.commands.executeCommand("workbench.action.closeActiveEditor");
         });
     }
   }
@@ -378,21 +362,13 @@ export default class TutorialOrchestrator {
     }
 
     // Grab backup content path for current document to replace active document's content)
-    const backupPath = activeCodePanelDocument.uri.fsPath.replace(
-      "pipelines",
-      "pipelinesBackup"
-    );
+    const backupPath = activeCodePanelDocument.uri.fsPath.replace("pipelines", "pipelinesBackup");
 
     //get the text from the backup
     const originalCode = readFileSync(backupPath, { encoding: "utf-8" });
 
     // A range that covers the entire document
-    const documentRange = new vscode.Range(
-      0,
-      0,
-      activeCodePanelDocument.lineCount,
-      Infinity
-    );
+    const documentRange = new vscode.Range(0, 0, activeCodePanelDocument.lineCount, Infinity);
 
     activeEditor.edit((editBuilder) => {
       editBuilder.replace(documentRange, originalCode);
@@ -486,9 +462,7 @@ export default class TutorialOrchestrator {
       const shouldShowResetCodeButton = !this._isCodeSameAsBackup();
 
       // If code status changed, update flag and reopen Webview Panel:
-      if (
-        shouldShowResetCodeButton !== this._webviewFlags.showResetCodeButton
-      ) {
+      if (shouldShowResetCodeButton !== this._webviewFlags.showResetCodeButton) {
         this._webviewFlags.showResetCodeButton = shouldShowResetCodeButton;
         this.openWebviewPanel(
           this._tutorial.currentSection.title,
@@ -601,14 +575,14 @@ export default class TutorialOrchestrator {
 
     // Get the local path to main script run in the webview, then convert it to a uri we can use in the webview.
     const scriptUri = webview.asWebviewUri(
-      vscode.Uri.joinPath(this._context.extensionUri, "media", "main.js")
+      vscode.Uri.joinPath(this._context.extensionUri, "assets", "main.js")
     );
 
     const styleVSCodeUri = webview.asWebviewUri(
-      vscode.Uri.joinPath(this._context.extensionUri, "media", "vscode.css")
+      vscode.Uri.joinPath(this._context.extensionUri, "assets", "vscode.css")
     );
     const styleMainUri = webview.asWebviewUri(
-      vscode.Uri.joinPath(this._context.extensionUri, "media", "main.css")
+      vscode.Uri.joinPath(this._context.extensionUri, "assets", "main.css")
     );
 
     const codiconsUri = webview.asWebviewUri(
@@ -622,17 +596,11 @@ export default class TutorialOrchestrator {
     );
 
     // Process images in doc content
-    docContent = docContent.replace(
-      /<img\s+[^>]*src="([^"]*)"[^>]*>/g,
-      (match, originalSrc) => {
-        const onDiskPath = vscode.Uri.joinPath(
-          this._context.extensionUri,
-          originalSrc
-        );
-        const newSrc = this._webviewPanel?.webview.asWebviewUri(onDiskPath);
-        return match.replace(/src="[^"]*"/, `src="${newSrc}"`);
-      }
-    );
+    docContent = docContent.replace(/<img\s+[^>]*src="([^"]*)"[^>]*>/g, (match, originalSrc) => {
+      const onDiskPath = vscode.Uri.joinPath(this._context.extensionUri, originalSrc);
+      const newSrc = this._webviewPanel?.webview.asWebviewUri(onDiskPath);
+      return match.replace(/src="[^"]*"/, `src="${newSrc}"`);
+    });
 
     const nonce = getNonce();
 
@@ -646,9 +614,7 @@ export default class TutorialOrchestrator {
     <meta charset="UTF-8">
     <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src ${
       webview.cspSource
-    }; style-src ${webview.cspSource}; font-src ${
-      webview.cspSource
-    }; script-src 'nonce-${nonce}';">
+    }; style-src ${webview.cspSource}; font-src ${webview.cspSource}; script-src 'nonce-${nonce}';">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="${styleVSCodeUri}" rel="stylesheet">
     <link href="${styleMainUri}" rel="stylesheet">

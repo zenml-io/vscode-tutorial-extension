@@ -3,7 +3,6 @@
   "type": "light",
   "colors": {
     // ===== MAIN WORKBENCH =====
-    "workbench.background": "#ffffff",
     "editor.background": "#ffffff",
     "editor.foreground": "#1a1a2e",
     "sideBar.background": "#f8f9fa",

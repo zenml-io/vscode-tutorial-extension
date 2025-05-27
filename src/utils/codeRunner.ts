@@ -31,12 +31,17 @@ function runCode(
 ) {
   const scriptPath = path.join(os.tmpdir(), `runCode${uniqueId}.sh`);
 
+  // Get the project root directory (go up from pipeline file to project root)
+  const projectRoot = path.resolve(path.dirname(filePath), "../..");
+
   writeFileSync(
     scriptPath,
     `
     {
     clear
     echo "Executing code..."
+    cd "${projectRoot}"
+    export PYTHONPATH="${projectRoot}:$PYTHONPATH"
     python "${filePath}"
     if [ $? -eq 0 ]; then
       touch "${successFilePath}"
