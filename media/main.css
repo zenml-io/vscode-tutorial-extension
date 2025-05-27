@@ -28,7 +28,7 @@ main {
   -moz-osx-font-smoothing: grayscale;
 }
 main {
-  padding: 75px 40px 0;
+  padding: 75px 40px 80px;
   max-width: 1200px;
   margin: 0 auto;
   line-height: 21px;
@@ -323,31 +323,29 @@ header {
 
 /* buttons */
 .nav-button {
-  background: var(--vscode-button-background);
-  color: var(--vscode-button-foreground);
-  border: none;
-  border-radius: 6px;
-  padding: 8px 12px;
-  font-size: 12px;
+  background: var(--vscode-button-secondaryBackground);
+  color: var(--vscode-button-secondaryForeground);
+  border: 1px solid var(--vscode-sideBar-border);
+  border-radius: 8px;
+  padding: 8px;
+  font-size: 14px;
   font-weight: 500;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 6px;
   transition: all 0.2s ease;
-  min-width: 40px;
-  max-width: 40px;
-  width: 40px;
-  height: 40px;
+  height: 32px;
   white-space: nowrap;
   justify-content: center;
   flex-shrink: 0;
   flex-grow: 0;
+  width: auto;
   font-family: "Inter", sans-serif;
 }
 
 .nav-button:hover:not(.disabled) {
-  background: var(--vscode-button-hoverBackground);
+  background: var(--vscode-button-secondaryHoverBackground);
   transform: translateY(-1px);
 }
 
@@ -362,13 +360,67 @@ header {
   display: none !important;
 }
 
+/* Fixed Footer - matching header design */
 footer {
   position: fixed;
-  bottom: 0px;
-  background-color: var(--vscode-editor-background);
-  margin-bottom: 0;
-  width: 100%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--vscode-editor-background);
+  border-top: 1px solid var(--vscode-input-border);
+  padding: 12px 24px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
   font-family: "Inter", sans-serif;
+}
+
+/* Footer run pipeline button - optimized for footer */
+footer .run-pipeline-button {
+  background: var(--zenml-purple);
+  border: none;
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 160px;
+  justify-content: center;
+  font-family: "Inter", sans-serif;
+  margin: 0;
+}
+
+footer .run-pipeline-button:hover {
+  background: var(--zenml-purple-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(122, 62, 244, 0.3);
+}
+
+footer .run-pipeline-button:active {
+  transform: translateY(0);
+}
+
+footer .run-pipeline-button.running {
+  background: var(--zenml-purple-light);
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+footer .run-pipeline-button.completed {
+  background: var(--zenml-green);
+  color: white;
+}
+
+footer .run-pipeline-button.failed {
+  background: var(--zenml-red);
+  color: white;
 }
 
 #progress {
@@ -463,11 +515,7 @@ button#zenml-server-connect {
 /* Interactive Tutorial Enhancements - Using ZenML Colors */
 
 .run-pipeline-button {
-  background: linear-gradient(
-    135deg,
-    var(--zenml-purple),
-    var(--zenml-purple-dark)
-  );
+  background: var(--zenml-purple);
   border: none;
   color: #ffffff;
   padding: 12px 24px;

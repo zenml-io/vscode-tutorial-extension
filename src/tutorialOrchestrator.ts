@@ -283,6 +283,7 @@ export default class TutorialOrchestrator {
             isFirst ? "disabled" : ""
           }" id="nav-previous" ${isFirst ? "disabled" : ""}>
             <i class="codicon codicon-chevron-left"></i>
+            <span>Prev</span>
           </button>
           <div class="tutorial-title">
             <h2>${this._tutorial.currentSection.title}</h2>
@@ -294,6 +295,7 @@ export default class TutorialOrchestrator {
             isLast ? "disabled" : ""
           }" id="nav-next" ${isLast ? "disabled" : ""}>
             <i class="codicon codicon-chevron-right"></i>
+            <span>Next</span>
           </button>
         </div>
       </div>
@@ -659,14 +661,14 @@ export default class TutorialOrchestrator {
     </header>
     <main>
       ${docContent}
-      <div>
-        ${
-          this._tutorial.currentSection.canRunPipeline
-            ? '<button class="action-button primary run-pipeline-button" id="run-pipeline"><i class="codicon codicon-play"></i><span>Run Pipeline</span></button>'
-            : ""
-        }
-      </div>
     </main>
+    <footer>
+      ${
+        this._tutorial.currentSection.canRunPipeline
+          ? '<button class="run-pipeline-button" id="run-pipeline"><i class="codicon codicon-play"></i><span>Run Pipeline</span></button>'
+          : ""
+      }
+    </footer>
     
     <script nonce="${nonce}" src="${scriptUri}"></script>
     <script nonce="${nonce}">
