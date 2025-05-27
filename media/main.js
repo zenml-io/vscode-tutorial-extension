@@ -46,7 +46,9 @@
         // Close breadcrumb trail after selection
         if (breadcrumbTrail) {
           breadcrumbTrail.classList.remove("expanded");
-          const chevronIcon = breadcrumbToggle?.querySelector(".codicon-chevron-up");
+          const chevronIcon = breadcrumbToggle?.querySelector(
+            ".codicon-chevron-up"
+          );
           if (chevronIcon) {
             chevronIcon.className = "codicon codicon-chevron-down";
           }
@@ -115,7 +117,9 @@
 
   // Handle responsive navigation collapse
   function handleResponsiveNavigation() {
-    const container = /** @type {HTMLElement} */ (document.querySelector(".tutorial-header"));
+    const container = /** @type {HTMLElement} */ (
+      document.querySelector(".tutorial-header")
+    );
     if (!container) {
       return;
     }
@@ -174,6 +178,115 @@
   // Run tooltip setup after content loads
   setTimeout(addTooltips, 100);
 
+  // COPY BUTTON FUNCTIONALITY
+  function initializeCopyButtons() {
+    // Add click event listeners to all code blocks for copy functionality
+    document.querySelectorAll("pre").forEach((pre) => {
+      pre.addEventListener("click", function (e) {
+        // Check if the click was on the copy button area (top-right corner)
+        const rect = pre.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        const clickY = e.clientY - rect.top;
+
+        // Copy button is positioned at top: 12px, right: 12px, size: 24x24
+        const buttonLeft = rect.width - 36; // 12px from right + 24px width
+        const buttonTop = 12;
+        const buttonRight = rect.width - 12;
+        const buttonBottom = 36; // 12px from top + 24px height
+
+        if (
+          clickX >= buttonLeft &&
+          clickX <= buttonRight &&
+          clickY >= buttonTop &&
+          clickY <= buttonBottom
+        ) {
+          // Get the code content
+          const codeElement = pre.querySelector("code");
+          if (codeElement) {
+            const codeText = codeElement.textContent || codeElement.innerText;
+
+            // Copy to clipboard
+            navigator.clipboard
+              .writeText(codeText)
+              .then(() => {
+                // Show brief feedback
+                showCopyFeedback(pre);
+              })
+              .catch((err) => {
+                console.error("Failed to copy code: ", err);
+                // Fallback for older browsers
+                fallbackCopyTextToClipboard(codeText, pre);
+              });
+          }
+        }
+      });
+    });
+  }
+
+  function showCopyFeedback(preElement) {
+    // Create a temporary feedback element
+    const feedback = document.createElement("div");
+    feedback.textContent = "Copied!";
+    feedback.style.cssText = `
+      position: absolute;
+      top: 8px;
+      right: 50px;
+      background: var(--vscode-editor-background);
+      color: var(--vscode-titleBar-activeForeground);
+      border: 1px solid var(--vscode-sideBar-border);
+      border-radius: 4px;
+      padding: 4px 8px;
+      font-size: 11px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      z-index: 1000;
+      pointer-events: none;
+      opacity: 1;
+      transition: opacity 0.3s ease;
+    `;
+
+    preElement.style.position = "relative";
+    preElement.appendChild(feedback);
+
+    // Fade out and remove after 1.5 seconds
+    setTimeout(() => {
+      feedback.style.opacity = "0";
+      setTimeout(() => {
+        if (feedback.parentNode) {
+          feedback.remove();
+        }
+      }, 300);
+    }, 1200);
+  }
+
+  function fallbackCopyTextToClipboard(text, preElement) {
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+
+    // Avoid scrolling to bottom
+    textArea.style.top = "0";
+    textArea.style.left = "0";
+    textArea.style.position = "fixed";
+
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+
+    try {
+      const successful = document.execCommand("copy");
+      if (successful) {
+        showCopyFeedback(preElement);
+      }
+    } catch (err) {
+      console.error("Fallback: Oops, unable to copy", err);
+    }
+
+    document.body.removeChild(textArea);
+  }
+
+  // Initialize copy buttons after DOM is loaded
+  setTimeout(initializeCopyButtons, 100);
+
   // EVENT LISTENERS
 
   document.querySelectorAll(".section").forEach((element) => {
@@ -184,23 +297,29 @@
     });
   });
 
-  document.querySelector(".reset-section")?.addEventListener("click", (element) => {
-    //@ts-ignore for dataset
-    const id = parseInt(element.target?.dataset.id, 10);
-    handleReset();
-  });
+  document
+    .querySelector(".reset-section")
+    ?.addEventListener("click", (element) => {
+      //@ts-ignore for dataset
+      const id = parseInt(element.target?.dataset.id, 10);
+      handleReset();
+    });
 
   document.querySelector(".reset-code")?.addEventListener("click", () => {
     handleResetCode();
   });
 
-  document.getElementById("zenml-server-connect")?.addEventListener("click", () => {
-    handleServerConnect();
-  });
+  document
+    .getElementById("zenml-server-connect")
+    ?.addEventListener("click", () => {
+      handleServerConnect();
+    });
 
-  document.getElementById("local-server-connect")?.addEventListener("click", () => {
-    handleConnectToLocalDashboard();
-  });
+  document
+    .getElementById("local-server-connect")
+    ?.addEventListener("click", () => {
+      handleConnectToLocalDashboard();
+    });
 
   document.getElementById("next")?.addEventListener("click", () => {
     handleNext();
@@ -245,13 +364,17 @@
   });
 
   // Enhanced action button handlers for the new header buttons
-  document.getElementById("runCodeFile")?.addEventListener("click", function () {
-    handleRunCode();
-  });
+  document
+    .getElementById("runCodeFile")
+    ?.addEventListener("click", function () {
+      handleRunCode();
+    });
 
-  document.getElementById("resetCodeFile")?.addEventListener("click", function () {
-    handleResetCode();
-  });
+  document
+    .getElementById("resetCodeFile")
+    ?.addEventListener("click", function () {
+      handleResetCode();
+    });
 
   // Dashboard link
   document.getElementById("dashboard-url")?.addEventListener("click", (e) => {
