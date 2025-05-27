@@ -30,7 +30,7 @@
     "statusBar.background": "#7A3EF4",
     "statusBar.foreground": "#ffffff",
     "statusBar.border": "#7A3EF4",
-    "statusBar.noFolderBackground": "#AF8BF8",
+    "statusBar.noFolderBackground": "#7A3EF4",
     "statusBar.debuggingBackground": "#361776",
     "statusBarItem.hoverBackground": "#ffffff20",
 
