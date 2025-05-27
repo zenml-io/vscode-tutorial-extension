@@ -20,7 +20,7 @@
     "codespace",
     "python"
   ],
-  "icon": "media/zenml-icon.png",
+  "icon": "assets/zenml-icon.png",
   "license": "Apache-2.0",
   "activationEvents": [
     "onStartupFinished"

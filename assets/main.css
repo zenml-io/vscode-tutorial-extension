@@ -18,9 +18,8 @@ body,
 main {
   margin: 0;
   padding: 0;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   font-size: 14px;
   background: var(--vscode-editor-background);
   color: var(--vscode-foreground);
@@ -160,8 +159,8 @@ pre {
   padding: 16px 20px;
   margin: 20px 0;
   overflow-x: auto;
-  font-family: var(--vscode-editor-font-family), "SF Mono", Monaco,
-    "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
+  font-family: var(--vscode-editor-font-family), "SF Mono", Monaco, "Cascadia Code", "Roboto Mono",
+    Consolas, "Courier New", monospace;
   font-size: 13px;
   line-height: 1.3;
   position: relative;
@@ -183,8 +182,8 @@ code {
   border: 1px solid var(--zenml-border);
   border-radius: 4px;
   padding: 2px 6px;
-  font-family: var(--vscode-editor-font-family), "SF Mono", Monaco,
-    "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
+  font-family: var(--vscode-editor-font-family), "SF Mono", Monaco, "Cascadia Code", "Roboto Mono",
+    Consolas, "Courier New", monospace;
   font-size: 0.9em;
   color: var(--zenml-purple);
 }
@@ -534,11 +533,7 @@ button#zenml-server-connect {
 }
 
 .run-pipeline-button:hover {
-  background: linear-gradient(
-    135deg,
-    var(--zenml-purple-dark),
-    var(--zenml-purple)
-  );
+  background: linear-gradient(135deg, var(--zenml-purple-dark), var(--zenml-purple));
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(122, 62, 244, 0.3);
 }
@@ -648,8 +643,7 @@ button#zenml-server-connect {
   }
   100% {
     opacity: 0;
-    transform: translate(var(--dx), var(--dy)) rotate(var(--rotation))
-      scale(0.3);
+    transform: translate(var(--dx), var(--dy)) rotate(var(--rotation)) scale(0.3);
   }
 }
 

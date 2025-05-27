@@ -2,14 +2,19 @@
 Demonstrates automatic retries *and* a failure hook.
 Run it a few times – roughly half will need 1–2 retries.
 """
-import random, time
+
+import random
+import time
+
 from typing_extensions import Annotated
-from zenml import step, pipeline
+from zenml import pipeline, step
 from zenml.config import StepRetryConfig
+
 
 # ──────────────── hook functions ────────────────
 def failure_hook(exc: BaseException):
     print(f"⚠️  hook: step failed with {exc!r}")
+
 
 # ──────────────── flaky step with retries ─────────
 @step(
@@ -19,13 +24,15 @@ def failure_hook(exc: BaseException):
 def flaky() -> Annotated[str, "result"]:
     if random.random() < 0.5:
         raise RuntimeError("intermittent error")
-    time.sleep(0.5)          # pretend work
+    time.sleep(0.5)  # pretend work
     return "All good!"
+
 
 # ──────────────── pipeline wiring ────────────────
 @pipeline
 def robust_pipeline():
     flaky()
+
 
 # ──────────────── run & inspect ────────────────
 if __name__ == "__main__":
