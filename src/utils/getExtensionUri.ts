@@ -9,17 +9,17 @@ export default function getExtensionUri(context: vscode.ExtensionContext) {
     if (isTutorialEnabled) {
       // Use the codespace container extension path when tutorial is enabled
       return vscode.Uri.file(
-        "/opt/code-server/extensions/zenml.zenml-codespace-tutorial-0.0.1/pipelines"
+        "/home/coder/extensions/zenml.zenml-codespace-tutorial-0.0.1"
       );
     } else {
       // Use the original logic for other environments
       return vscode.Uri.file(
         `/root/${
           isCodespace ? ".vscode-remote" : ".vscode-server"
-        }/extensions/zenml.zenml-codespace-tutorial-0.0.1/pipelines`
+        }/extensions/zenml.zenml-codespace-tutorial-0.0.1`
       );
     }
   } else {
-    return vscode.Uri.file("/workspaces/vscode-tutorial-extension/pipelines");
+    return vscode.Uri.file("/workspaces/vscode-tutorial-extension");
   }
 }
