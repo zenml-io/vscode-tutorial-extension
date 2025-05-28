@@ -1,55 +1,42 @@
-# 🎉 Congratulations! Tutorial Complete!
+<div class="two-column-content">
+<div class="left-column">
+    
+<div style="text-align: center; margin: 40px auto;">
+<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M90 3C138.049 3 177 41.9512 177 90C177 138.049 138.049 177 90 177C41.9512 177 3 138.049 3 90C3 41.9512 41.9512 3 90 3Z" fill="#D2F2DB"/>
+<path d="M90 3C138.049 3 177 41.9512 177 90C177 138.049 138.049 177 90 177C41.9512 177 3 138.049 3 90C3 41.9512 41.9512 3 90 3Z" stroke="#68D486" stroke-width="6"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M129.908 59.2591C131.697 61.049 131.697 63.951 129.908 65.7409L79.4909 116.158C77.701 117.947 74.799 117.947 73.0091 116.158L50.0924 93.2409C48.3025 91.451 48.3025 88.549 50.0924 86.7591C51.8823 84.9692 54.7843 84.9692 56.5742 86.7591L76.25 106.435L123.426 59.2591C125.216 57.4692 128.118 57.4692 129.908 59.2591Z" fill="#1CBF4A"/>
+</svg>
 
-<img src="assets/zenml-icon.png" alt="ZenML Logo" style="width: 120px; height: 120px; margin: 40px auto; display: block;">
+</div>
 
-## 🏆 What You've Accomplished
+# Congratulations!
+
+You Completed the Tutorial
 
 You've successfully completed the **ZenML Interactive Tutorial** and mastered the fundamentals of MLOps with ZenML!
 
-### ✅ Skills You've Mastered
+</div>
+<div class="right-column">
 
-**✓ Core Concepts**: Creating steps, pipelines, and managing data flow  
-**✓ Configuration**: Making pipelines configurable with parameters and tags  
-**✓ Optimization**: Implementing caching for better performance  
-**✓ Reliability**: Building robust pipelines with error handling  
-**✓ Insights**: Logging metadata and creating visualizations  
-**✓ Scalability**: Handling parallel workflows and complex patterns
-
-You're now equipped with the essential skills to build production-ready MLOps workflows with ZenML!
-
-## 🚀 What's Next?
+## What's Next?
 
 Now that you've mastered the basics, here are some great next steps:
 
-### 📖 **Dive Deeper**
+### Dive Deeper
 
 - **[ZenML Documentation](https://docs.zenml.io)** - Comprehensive guides and API reference
-- **[ZenML Examples](https://github.com/zenml-io/zenml/tree/main/examples)** - Real-world use cases and patterns
-- **[Best Practices Guide](https://docs.zenml.io/user-guide/production-guide)** - Production-ready MLOps workflows
+- **[ZenML Projects](https://github.com/zenml-io/zenml-projects)** - Real-world use cases and patterns
+- **[Best Practices Guide](https://docs.zenml.io/user-guides)** - Production-ready MLOps workflows
 
-### 🛠️ **Build Something Real**
-
-- **Create your own pipeline** using the concepts you've learned
-- **Integrate with your ML models** and existing workflows
-- **Explore advanced features** like model deployment and monitoring
-
-### 🤝 **Join the Community**
+### Join the Community
 
 - **[ZenML Slack](https://zenml.io/slack)** - Get help and share your projects
-- **[GitHub Discussions](https://github.com/zenml-io/zenml/discussions)** - Feature requests and technical discussions
-- **[ZenML Blog](https://blog.zenml.io)** - Latest updates and tutorials
+- **[ZenML Blog](https://zenml.io/blog)** - Latest updates and tutorials
 
-### 🎯 **Advanced Topics to Explore**
-
-- **Model Deployment** - Deploy your models to production
-- **Experiment Tracking** - Advanced tracking with MLflow, Weights & Biases
-- **Data Validation** - Ensure data quality with Great Expectations
-- **Model Monitoring** - Monitor model performance in production
-
-## 🔄 Want to Review?
-
-Feel free to restart the tutorial anytime to refresh your knowledge or share it with your team!
-
----
+**Want to Review?** Feel free to restart the tutorial anytime to refresh your knowledge or share it with your team!
 
 **Happy MLOps with ZenML!** 🚀✨
+
+</div>
+</div>

@@ -1,12 +1,12 @@
-<div class="welcome-content">
-<div class="welcome-left">
+<div class="two-column-content">
+<div class="left-column">
 
 # Welcome to ZenML Interactive Tutorial!
 
 This hands-on tutorial will teach you **ZenML fundamentals** through 10 progressive lessons. Each lesson introduces exactly **one new concept** with copy-paste code examples.
 
 </div>
-<div class="welcome-right">
+<div class="right-column">
 
 ## Your Learning Journey
 

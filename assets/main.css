@@ -77,6 +77,22 @@ ol {
   font-size: 14px;
 }
 
+/* Global link styling with ZenML purple */
+a {
+  color: var(--zenml-purple);
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--zenml-purple-dark);
+  text-decoration: underline;
+}
+
+a:visited {
+  color: var(--zenml-purple);
+}
+
 /* List Improvements */
 ul,
 ol {
@@ -768,49 +784,77 @@ button#zenml-server-connect {
   padding: 75px 40px 80px;
 }
 
-/* Two-column layout for welcome screen */
-.welcome-content {
+/* Two-column layout for both welcome and completion screens */
+.two-column-content {
   display: flex;
   gap: 40px;
   margin-bottom: 40px;
 }
 
-.welcome-left,
-.welcome-right {
+.left-column,
+.right-column {
   flex: 1;
 }
 
-.welcome-left {
-  background: url("../assets/welcome.png") no-repeat center bottom
-    var(--zenml-purple-light-bg);
-  background-size: contain;
-  border-radius: 8px;
-  padding: 24px 24px 480px;
+.left-column {
+  padding: 24px;
 }
 
-.welcome-left h1 {
+.left-column h1 {
   font-size: 1.6em;
 }
 
-.welcome-right {
+.right-column {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
+.welcome-screen .left-column {
+  background: url("../assets/welcome.png") no-repeat center bottom
+    var(--zenml-purple-light-bg);
+  background-size: contain;
+  border-radius: 8px;
+  padding-bottom: 480px;
+}
+
+.completion-screen .left-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+
+.completion-screen .right-column {
+  background-color: var(--zenml-purple-light-bg);
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.completion-screen .right-column h2,
+.completion-screen .right-column h3,
+.completion-screen .right-column p {
+  margin-top: 0;
+}
+
+.completion-screen .right-column ul {
+  padding-left: 16px;
+}
+
 /* Responsive design - stack columns on smaller screens */
 @media (max-width: 768px) {
-  .welcome-content {
+  .two-column-content {
     flex-direction: column;
     gap: 20px;
   }
 
-  .welcome-left,
-  .welcome-right {
+  .left-column,
+  .right-column {
     padding: 0;
   }
 
-  .welcome-right {
+  .right-column {
     border-left: none;
     border-top: 1px solid var(--zenml-border);
     padding-top: 20px;
@@ -899,4 +943,14 @@ button#zenml-server-connect {
 
 .welcome-start-button .codicon {
   font-size: 18px;
+}
+
+/* Keep header visible on completion screen and center content vertically */
+.completion-screen main {
+  padding: 75px 40px 80px;
+  min-height: calc(100vh - 155px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
