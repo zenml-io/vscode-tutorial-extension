@@ -9,6 +9,14 @@
   // Initialize the interactive tutorial system
   initializeInteractiveTutorial();
 
+  // Welcome screen start button handler
+  const welcomeStartButton = document.querySelector(".welcome-start-button");
+  if (welcomeStartButton) {
+    welcomeStartButton.addEventListener("click", function () {
+      vscode.postMessage({ type: "next" });
+    });
+  }
+
   // Handle breadcrumb toggle
   const breadcrumbToggle = document.getElementById("breadcrumb-toggle");
   const breadcrumbTrail = document.getElementById("breadcrumb-trail");

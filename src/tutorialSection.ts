@@ -19,6 +19,8 @@ export interface Section {
   description: string;
   steps: SectionStep[];
   canRunPipeline?: boolean;
+  isWelcomeScreen?: boolean;
+  isCompletionScreen?: boolean;
 }
 
 export class TutorialSection {
@@ -28,16 +30,24 @@ export class TutorialSection {
   public currentStep: number;
   public readonly index: number;
   public canRunPipeline: boolean;
+  public isWelcomeScreen: boolean;
+  public isCompletionScreen: boolean;
   private _steps: SectionStep[];
   private _done = false;
   private _hasBeenDone = false;
 
-  constructor(section: Section, context: vscode.ExtensionContext, index: number) {
+  constructor(
+    section: Section,
+    context: vscode.ExtensionContext,
+    index: number
+  ) {
     this.context = context;
     this.title = section.title;
     this.index = index;
     this.description = section.description;
     this.canRunPipeline = section.canRunPipeline || false;
+    this.isWelcomeScreen = section.isWelcomeScreen || false;
+    this.isCompletionScreen = section.isCompletionScreen || false;
     this._steps = section.steps;
     this._convertStepMarkdown();
     this.currentStep = 0;
