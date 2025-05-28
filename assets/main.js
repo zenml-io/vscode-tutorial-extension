@@ -62,9 +62,7 @@
         // Close breadcrumb trail after selection
         if (breadcrumbTrail) {
           breadcrumbTrail.classList.remove("expanded");
-          const chevronIcon = breadcrumbToggle?.querySelector(
-            ".codicon-chevron-up"
-          );
+          const chevronIcon = breadcrumbToggle?.querySelector(".codicon-chevron-up");
           if (chevronIcon) {
             chevronIcon.className = "codicon codicon-chevron-down";
           }
@@ -133,9 +131,7 @@
 
   // Handle responsive navigation collapse
   function handleResponsiveNavigation() {
-    const container = /** @type {HTMLElement} */ (
-      document.querySelector(".tutorial-header")
-    );
+    const container = /** @type {HTMLElement} */ (document.querySelector(".tutorial-header"));
     if (!container) {
       return;
     }
@@ -313,29 +309,23 @@
     });
   });
 
-  document
-    .querySelector(".reset-section")
-    ?.addEventListener("click", (element) => {
-      //@ts-ignore for dataset
-      const id = parseInt(element.target?.dataset.id, 10);
-      handleReset();
-    });
+  document.querySelector(".reset-section")?.addEventListener("click", (element) => {
+    //@ts-ignore for dataset
+    const id = parseInt(element.target?.dataset.id, 10);
+    handleReset();
+  });
 
   document.querySelector(".reset-code")?.addEventListener("click", () => {
     handleResetCode();
   });
 
-  document
-    .getElementById("zenml-server-connect")
-    ?.addEventListener("click", () => {
-      handleServerConnect();
-    });
+  document.getElementById("zenml-server-connect")?.addEventListener("click", () => {
+    handleServerConnect();
+  });
 
-  document
-    .getElementById("local-server-connect")
-    ?.addEventListener("click", () => {
-      handleConnectToLocalDashboard();
-    });
+  document.getElementById("local-server-connect")?.addEventListener("click", () => {
+    handleConnectToLocalDashboard();
+  });
 
   document.getElementById("next")?.addEventListener("click", () => {
     handleNext();
@@ -380,17 +370,13 @@
   });
 
   // Enhanced action button handlers for the new header buttons
-  document
-    .getElementById("runCodeFile")
-    ?.addEventListener("click", function () {
-      handleRunCode();
-    });
+  document.getElementById("runCodeFile")?.addEventListener("click", function () {
+    handleRunCode();
+  });
 
-  document
-    .getElementById("resetCodeFile")
-    ?.addEventListener("click", function () {
-      handleResetCode();
-    });
+  document.getElementById("resetCodeFile")?.addEventListener("click", function () {
+    handleResetCode();
+  });
 
   // Dashboard link
   document.getElementById("dashboard-url")?.addEventListener("click", (e) => {
@@ -500,11 +486,10 @@
   }
 
   function handlePipelineCompleted() {
-    // Removed confetti trigger - now only shown on completion screen
-    // Auto-advance to next tutorial after a short delay
-    // setTimeout(() => {
-    //   handleNext();
-    // }, 3000);
+    // Activate pulsating next button
+    setTimeout(() => {
+      triggerNextButtonPulse();
+    }, 1500);
   }
 
   function showDashboardUrl(url) {
@@ -627,6 +612,19 @@
       const percentage = (current / total) * 100;
       //@ts-ignore
       progressElement.style.width = `${percentage}%`;
+    }
+  }
+
+  function triggerNextButtonPulse() {
+    const nextButton = document.getElementById("nav-next");
+    if (nextButton && !nextButton.classList.contains("disabled")) {
+      nextButton.classList.add("pulse-ready");
+
+      // Remove pulse when button is clicked
+      nextButton.addEventListener("click", function removePulse() {
+        nextButton.classList.remove("pulse-ready");
+        nextButton.removeEventListener("click", removePulse);
+      });
     }
   }
 

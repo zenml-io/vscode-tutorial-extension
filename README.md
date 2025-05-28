@@ -2,6 +2,10 @@
 
 Development repository for contributors working on the ZenML VSCode Tutorial Extension.
 
+<div style="display: flex; justify-content: center;">
+  <img src=".devcontainer/assets/welcome-page.png" alt="Welcome page screenshot" width="1000" />
+</div>
+
 ## 🚀 Quick Start
 
 ### Prerequisites

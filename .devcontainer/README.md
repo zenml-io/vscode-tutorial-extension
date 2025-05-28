@@ -1,11 +1,10 @@
 # Welcome to the ZenML Interactive Tutorial Extension 👋
 
-This VS Code extension provides an interactive, hands-on learning experience for ZenML - the open-source MLOps framework. Master ZenML fundamentals through 10 guided pipeline examples with step-by-step tutorials and one-click execution!
+This VS Code extension provides an interactive, hands-on learning experience for ZenML - the open-source MLOps framework. Master ZenML fundamentals through 10 guided
+pipeline examples with step-by-step tutorials and one-click execution!
 
-<!-- Place architecture diagram on left and demo screenshot on right in grid 2 columns -->
-<div style="display: grid; grid-template-columns: 1fr 1fr;">
-  <img src="../assets/architecture.png" alt="Architecture" height="500" />
-  <img src="../assets/demo-screenshot.png" alt="Demo screenshot" height="500" />
+<div style="display: flex; justify-content: center;">
+  <img src="assets/welcome.png" alt="Welcome page screenshot" width="1000" />
 </div>
 
 ## ✨ What You'll Learn
@@ -19,8 +18,6 @@ This VS Code extension provides an interactive, hands-on learning experience for
 - **Performance** - Use caching and parallel processing
 - **Reliability** - Handle errors with retries and hooks
 - **Configuration** - Use YAML to separate configuration from code
-
-**10 Progressive Tutorials** that build from basic concepts to advanced ZenML patterns.
 
 ## 🚀 Get Started
 
@@ -47,6 +44,8 @@ The fastest way to get started - no local setup required.
 3. Extension starts automatically
 
 ## 🎓 Tutorial Structure
+
+**10 Progressive Tutorials** that build from basic concepts to advanced ZenML patterns:
 
 | Tutorial | Topic           | Skills                   |
 | -------- | --------------- | ------------------------ |
