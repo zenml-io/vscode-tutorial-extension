@@ -1,14 +1,14 @@
 # No Python dependencies required for this VS Code extension project
 # This file exists to satisfy the project.Dockerfile COPY requirements.txt step 
 # core
-pandas
-pyarrow
-matplotlib
+pandas>=2.2.3
+pyarrow>=20.0.0
+matplotlib>=3.10.3
 scikit-learn>=1.6.1
 
 # integrations
-s3fs>2022.3.0
-boto3
-aws-profile-manager
+s3fs>=2025.5.1
+boto3>=1.37.3
+aws-profile-manager>=0.7.3
 sagemaker>=2.117.0
-kubernetes
+kubernetes>=32.0.1
