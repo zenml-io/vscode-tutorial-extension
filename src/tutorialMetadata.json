@@ -1,6 +1,17 @@
 {
   "sections": [
     {
+      "title": "Welcome to ZenML",
+      "description": "Interactive tutorial introduction",
+      "canRunPipeline": false,
+      "isWelcomeScreen": true,
+      "steps": [
+        {
+          "doc": "pipelines/welcome/welcome.md"
+        }
+      ]
+    },
+    {
       "title": "Hello World",
       "description": "Learn the basics of Steps & Pipelines",
       "canRunPipeline": true,
@@ -107,6 +118,17 @@
         {
           "doc": "pipelines/yamlConfig/yamlConfig.md",
           "code": "pipelines/yamlConfig/yaml_pipeline.py"
+        }
+      ]
+    },
+    {
+      "title": "Tutorial Complete!",
+      "description": "Congratulations and next steps",
+      "canRunPipeline": false,
+      "isCompletionScreen": true,
+      "steps": [
+        {
+          "doc": "pipelines/completion/completion.md"
         }
       ]
     }

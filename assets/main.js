@@ -9,6 +9,22 @@
   // Initialize the interactive tutorial system
   initializeInteractiveTutorial();
 
+  // Check if this is the completion screen and trigger confetti
+  if (document.body.classList.contains("completion-screen")) {
+    // Delay confetti slightly to let the page render
+    setTimeout(() => {
+      triggerCelebration();
+    }, 500);
+  }
+
+  // Welcome screen start button handler
+  const welcomeStartButton = document.querySelector(".welcome-start-button");
+  if (welcomeStartButton) {
+    welcomeStartButton.addEventListener("click", function () {
+      vscode.postMessage({ type: "next" });
+    });
+  }
+
   // Handle breadcrumb toggle
   const breadcrumbToggle = document.getElementById("breadcrumb-toggle");
   const breadcrumbTrail = document.getElementById("breadcrumb-trail");
@@ -484,8 +500,7 @@
   }
 
   function handlePipelineCompleted() {
-    triggerCelebration();
-
+    // Removed confetti trigger - now only shown on completion screen
     // Auto-advance to next tutorial after a short delay
     // setTimeout(() => {
     //   handleNext();

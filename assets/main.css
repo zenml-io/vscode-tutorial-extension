@@ -3,6 +3,7 @@
   --zenml-purple: #7a3ef4;
   --zenml-purple-dark: #533483;
   --zenml-purple-light: #af8bf8;
+  --zenml-purple-light-bg: #f1ebfe;
   --zenml-green: #179f3e;
   --zenml-orange: #a65d07;
   --zenml-red: #dc3545;
@@ -18,8 +19,9 @@ body,
 main {
   margin: 0;
   padding: 0;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
-    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
   font-size: 14px;
   background: var(--vscode-editor-background);
   color: var(--vscode-foreground);
@@ -75,6 +77,22 @@ ol {
   font-size: 14px;
 }
 
+/* Global link styling with ZenML purple */
+a {
+  color: var(--zenml-purple);
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--zenml-purple-dark);
+  text-decoration: underline;
+}
+
+a:visited {
+  color: var(--zenml-purple);
+}
+
 /* List Improvements */
 ul,
 ol {
@@ -87,16 +105,17 @@ li {
   font-size: 14px;
 }
 
-li strong {
+li strong,
+p strong {
   color: var(--zenml-dark);
 }
 
 /* Blockquote styling */
 blockquote {
   border-left: 4px solid var(--zenml-purple);
-  background: var(--zenml-light-bg);
+  background: var(--zenml-purple-light-bg);
   margin: 20px 0;
-  padding: 16px 20px;
+  padding: 4px 16px;
   border-radius: 0 6px 6px 0;
   font-style: italic;
   font-family: "Inter", sans-serif;
@@ -159,8 +178,8 @@ pre {
   padding: 16px 20px;
   margin: 20px 0;
   overflow-x: auto;
-  font-family: var(--vscode-editor-font-family), "SF Mono", Monaco, "Cascadia Code", "Roboto Mono",
-    Consolas, "Courier New", monospace;
+  font-family: var(--vscode-editor-font-family), "SF Mono", Monaco,
+    "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
   font-size: 13px;
   line-height: 1.3;
   position: relative;
@@ -182,8 +201,8 @@ code {
   border: 1px solid var(--zenml-border);
   border-radius: 4px;
   padding: 2px 6px;
-  font-family: var(--vscode-editor-font-family), "SF Mono", Monaco, "Cascadia Code", "Roboto Mono",
-    Consolas, "Courier New", monospace;
+  font-family: var(--vscode-editor-font-family), "SF Mono", Monaco,
+    "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
   font-size: 0.9em;
   color: var(--zenml-purple);
 }
@@ -533,7 +552,11 @@ button#zenml-server-connect {
 }
 
 .run-pipeline-button:hover {
-  background: linear-gradient(135deg, var(--zenml-purple-dark), var(--zenml-purple));
+  background: linear-gradient(
+    135deg,
+    var(--zenml-purple-dark),
+    var(--zenml-purple)
+  );
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(122, 62, 244, 0.3);
 }
@@ -643,7 +666,8 @@ button#zenml-server-connect {
   }
   100% {
     opacity: 0;
-    transform: translate(var(--dx), var(--dy)) rotate(var(--rotation)) scale(0.3);
+    transform: translate(var(--dx), var(--dy)) rotate(var(--rotation))
+      scale(0.3);
   }
 }
 
@@ -749,4 +773,184 @@ button#zenml-server-connect {
   flex: 1;
   font-family: "Inter", sans-serif;
   font-size: 14px;
+}
+
+/* Welcome and Completion Screen Styling */
+.welcome-screen main,
+.completion-screen main {
+  text-align: left;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 75px 40px 80px;
+}
+
+/* Two-column layout for both welcome and completion screens */
+.two-column-content {
+  display: flex;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.left-column,
+.right-column {
+  flex: 1;
+}
+
+.left-column {
+  padding: 24px;
+}
+
+.left-column h1 {
+  font-size: 1.6em;
+}
+
+.right-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.welcome-screen .left-column {
+  background: url("../assets/welcome.png") no-repeat center bottom
+    var(--zenml-purple-light-bg);
+  background-size: contain;
+  border-radius: 8px;
+  padding-bottom: 480px;
+}
+
+.completion-screen .left-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+
+.completion-screen .right-column {
+  background-color: var(--zenml-purple-light-bg);
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.completion-screen .right-column h2,
+.completion-screen .right-column h3,
+.completion-screen .right-column p {
+  margin-top: 0;
+}
+
+.completion-screen .right-column ul {
+  padding-left: 16px;
+}
+
+/* Responsive design - stack columns on smaller screens */
+@media (max-width: 768px) {
+  .two-column-content {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .left-column,
+  .right-column {
+    padding: 0;
+  }
+
+  .right-column {
+    border-left: none;
+    border-top: 1px solid var(--zenml-border);
+    padding-top: 20px;
+  }
+
+  .welcome-screen main,
+  .completion-screen main {
+    max-width: 800px;
+    padding: 75px 20px 80px;
+  }
+}
+
+.welcome-screen .nav-button.next,
+.completion-screen .nav-button.next {
+  background: var(--zenml-purple);
+  color: white;
+  border: 2px solid var(--zenml-purple);
+  font-weight: 600;
+  min-width: 140px;
+}
+
+.welcome-screen .nav-button.next:hover,
+.completion-screen .nav-button.next:hover {
+  background: var(--zenml-purple-dark);
+  border-color: var(--zenml-purple-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(122, 62, 244, 0.3);
+}
+
+.welcome-screen .nav-button.next:active,
+.completion-screen .nav-button.next:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(122, 62, 244, 0.2);
+}
+
+/* Hide footer on welcome and completion screens */
+.welcome-screen footer,
+.completion-screen footer {
+  display: none;
+}
+
+/* Hide header on welcome screen and center content vertically */
+.welcome-screen header {
+  display: none;
+}
+
+.welcome-screen main {
+  padding: 0 40px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Welcome CTA Button */
+.welcome-cta {
+  margin: 24px 0;
+  text-align: center;
+}
+
+.welcome-start-button {
+  background: var(--zenml-purple);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 16px 32px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: "Inter", sans-serif;
+  box-shadow: 0 4px 12px rgba(122, 62, 244, 0.2);
+}
+
+.welcome-start-button:hover {
+  background: var(--zenml-purple-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(122, 62, 244, 0.3);
+}
+
+.welcome-start-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(122, 62, 244, 0.2);
+}
+
+.welcome-start-button .codicon {
+  font-size: 18px;
+}
+
+/* Keep header visible on completion screen and center content vertically */
+.completion-screen main {
+  padding: 75px 40px 80px;
+  min-height: calc(100vh - 155px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

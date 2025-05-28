@@ -3,7 +3,10 @@ import path from "path";
 import * as vscode from "vscode";
 import Tutorial from "./tutorial";
 import codeRunner from "./utils/codeRunner";
-import { default as fileBackupPath, default as fileHasBackup } from "./utils/fileBackupPath";
+import {
+  default as fileBackupPath,
+  default as fileHasBackup,
+} from "./utils/fileBackupPath";
 import getNonce from "./utils/getNonce";
 
 export default class TutorialOrchestrator {
@@ -125,7 +128,8 @@ export default class TutorialOrchestrator {
         throw new Error("Editor is not defined");
       }
 
-      const activeEditorIsCurrentEditor = this._codePanel === vscode.window.activeTextEditor;
+      const activeEditorIsCurrentEditor =
+        this._codePanel === vscode.window.activeTextEditor;
 
       if (!activeEditorIsCurrentEditor) {
         await vscode.window.showTextDocument(this._codePanel.document, {
@@ -172,7 +176,8 @@ export default class TutorialOrchestrator {
         throw new Error("No code panel available");
       }
 
-      const activeEditorIsCurrentEditor = this._codePanel === vscode.window.activeTextEditor;
+      const activeEditorIsCurrentEditor =
+        this._codePanel === vscode.window.activeTextEditor;
 
       if (!activeEditorIsCurrentEditor) {
         await vscode.window.showTextDocument(this._codePanel.document, {
@@ -250,12 +255,18 @@ export default class TutorialOrchestrator {
   private _saveProgress() {
     // Save completed tutorials to workspace state
     const completedArray = Array.from(this._completedTutorials);
-    this._context.workspaceState.update("zenml.completedTutorials", completedArray);
+    this._context.workspaceState.update(
+      "zenml.completedTutorials",
+      completedArray
+    );
   }
 
   private _loadProgress() {
     // Load completed tutorials from workspace state
-    const completed = this._context.workspaceState.get<number[]>("zenml.completedTutorials", []);
+    const completed = this._context.workspaceState.get<number[]>(
+      "zenml.completedTutorials",
+      []
+    );
     this._completedTutorials = new Set(completed);
   }
 
@@ -264,13 +275,29 @@ export default class TutorialOrchestrator {
     const totalSections = this._tutorial.sections.length;
     const isFirst = currentIndex === 0;
     const isLast = currentIndex === totalSections - 1;
+    const isWelcomeScreen = this._tutorial.currentSection.isWelcomeScreen;
+    const isCompletionScreen = this._tutorial.currentSection.isCompletionScreen;
+
+    // For welcome screen, show "Start Tutorial" instead of "Next"
+    const nextButtonText = isWelcomeScreen ? "Start Tutorial" : "Next";
+    const nextButtonIcon = isWelcomeScreen
+      ? "codicon-play"
+      : "codicon-chevron-right";
+
+    // For completion screen, show "Restart Tutorial" instead of "Next"
+    const finalNextText = isCompletionScreen
+      ? "Restart Tutorial"
+      : nextButtonText;
+    const finalNextIcon = isCompletionScreen
+      ? "codicon-refresh"
+      : nextButtonIcon;
 
     return `
       <div class="tutorial-header">
        <div class="tutorial-nav">
-          <button class="nav-button prev ${isFirst ? "disabled" : ""}" id="nav-previous" ${
-      isFirst ? "disabled" : ""
-    }>
+          <button class="nav-button prev ${
+            isFirst ? "disabled" : ""
+          }" id="nav-previous" ${isFirst ? "disabled" : ""}>
             <i class="codicon codicon-chevron-left"></i>
             <span>Prev</span>
           </button>
@@ -280,11 +307,11 @@ export default class TutorialOrchestrator {
               ${this._tutorial.currentSection.description}
             </p>
           </div>
-          <button class="nav-button next ${isLast ? "disabled" : ""}" id="nav-next" ${
-      isLast ? "disabled" : ""
-    }>
-            <i class="codicon codicon-chevron-right"></i>
-            <span>Next</span>
+          <button class="nav-button next ${
+            isLast && !isCompletionScreen ? "disabled" : ""
+          }" id="nav-next" ${isLast && !isCompletionScreen ? "disabled" : ""}>
+            <i class="codicon ${finalNextIcon}"></i>
+            <span>${finalNextText}</span>
           </button>
         </div>
       </div>
@@ -310,7 +337,10 @@ export default class TutorialOrchestrator {
     try {
       const document = await vscode.workspace.openTextDocument(filePath);
       this._currentlyDisplayingDocument = document;
-      this._codePanel = await vscode.window.showTextDocument(document, vscode.ViewColumn.Two);
+      this._codePanel = await vscode.window.showTextDocument(
+        document,
+        vscode.ViewColumn.Two
+      );
     } catch (error) {
       vscode.window.showErrorMessage(`Failed to open file: ${error}`);
     }
@@ -325,7 +355,9 @@ export default class TutorialOrchestrator {
           preserveFocus: false,
         })
         .then(() => {
-          return vscode.commands.executeCommand("workbench.action.closeActiveEditor");
+          return vscode.commands.executeCommand(
+            "workbench.action.closeActiveEditor"
+          );
         });
     }
   }
@@ -362,13 +394,21 @@ export default class TutorialOrchestrator {
     }
 
     // Grab backup content path for current document to replace active document's content)
-    const backupPath = activeCodePanelDocument.uri.fsPath.replace("pipelines", "pipelinesBackup");
+    const backupPath = activeCodePanelDocument.uri.fsPath.replace(
+      "pipelines",
+      "pipelinesBackup"
+    );
 
     //get the text from the backup
     const originalCode = readFileSync(backupPath, { encoding: "utf-8" });
 
     // A range that covers the entire document
-    const documentRange = new vscode.Range(0, 0, activeCodePanelDocument.lineCount, Infinity);
+    const documentRange = new vscode.Range(
+      0,
+      0,
+      activeCodePanelDocument.lineCount,
+      Infinity
+    );
 
     activeEditor.edit((editBuilder) => {
       editBuilder.replace(documentRange, originalCode);
@@ -383,7 +423,11 @@ export default class TutorialOrchestrator {
       "zenml.markdown", // used internally - I think an identifier
       "Zenml", // displayed to user
       vscode.ViewColumn.One,
-      {}
+      {
+        enableScripts: true,
+        localResourceRoots: [this._context.extensionUri],
+        retainContextWhenHidden: true,
+      }
     );
 
     this._registerView();
@@ -462,7 +506,9 @@ export default class TutorialOrchestrator {
       const shouldShowResetCodeButton = !this._isCodeSameAsBackup();
 
       // If code status changed, update flag and reopen Webview Panel:
-      if (shouldShowResetCodeButton !== this._webviewFlags.showResetCodeButton) {
+      if (
+        shouldShowResetCodeButton !== this._webviewFlags.showResetCodeButton
+      ) {
         this._webviewFlags.showResetCodeButton = shouldShowResetCodeButton;
         this.openWebviewPanel(
           this._tutorial.currentSection.title,
@@ -474,11 +520,6 @@ export default class TutorialOrchestrator {
 
   // WEBVIEW
   private _registerView() {
-    this.webviewPanel.webview.options = {
-      enableScripts: true,
-      localResourceRoots: [this._context.extensionUri],
-    };
-
     this.webviewPanel.webview.onDidReceiveMessage(async (data) => {
       switch (data.type) {
         case "openSection": {
@@ -500,12 +541,29 @@ export default class TutorialOrchestrator {
           break;
         }
         case "navigateNext": {
-          if (this._tutorial.currentSection.isDone()) {
-            this.openSection(this._tutorial.currentSection.index + 1);
+          const currentSection = this._tutorial.currentSection;
+
+          // Handle welcome screen - go to first tutorial section (index 1)
+          if (currentSection.isWelcomeScreen) {
+            this.openSection(1);
+            this.closeTerminal();
+            break;
+          }
+
+          // Handle completion screen - restart tutorial from welcome screen
+          if (currentSection.isCompletionScreen) {
+            this.openSection(0);
+            this.closeTerminal();
+            break;
+          }
+
+          // Normal navigation logic
+          if (currentSection.isDone()) {
+            this.openSection(currentSection.index + 1);
             this.closeTerminal();
           } else {
-            this._tutorial.currentSection.nextStep();
-            this.openSection(this._tutorial.currentSection.index);
+            currentSection.nextStep();
+            this.openSection(currentSection.index);
           }
           break;
         }
@@ -544,12 +602,29 @@ export default class TutorialOrchestrator {
           break;
         }
         case "next": {
-          if (this._tutorial.currentSection.isDone()) {
-            this.openSection(this._tutorial.currentSection.index + 1);
+          const currentSection = this._tutorial.currentSection;
+
+          // Handle welcome screen - go to first tutorial section (index 1)
+          if (currentSection.isWelcomeScreen) {
+            this.openSection(1);
+            this.closeTerminal();
+            break;
+          }
+
+          // Handle completion screen - restart tutorial from welcome screen
+          if (currentSection.isCompletionScreen) {
+            this.openSection(0);
+            this.closeTerminal();
+            break;
+          }
+
+          // Normal navigation logic
+          if (currentSection.isDone()) {
+            this.openSection(currentSection.index + 1);
             this.closeTerminal();
           } else {
-            this._tutorial.currentSection.nextStep();
-            this.openSection(this._tutorial.currentSection.index);
+            currentSection.nextStep();
+            this.openSection(currentSection.index);
           }
           break;
         }
@@ -596,16 +671,33 @@ export default class TutorialOrchestrator {
     );
 
     // Process images in doc content
-    docContent = docContent.replace(/<img\s+[^>]*src="([^"]*)"[^>]*>/g, (match, originalSrc) => {
-      const onDiskPath = vscode.Uri.joinPath(this._context.extensionUri, originalSrc);
-      const newSrc = this._webviewPanel?.webview.asWebviewUri(onDiskPath);
-      return match.replace(/src="[^"]*"/, `src="${newSrc}"`);
-    });
+    docContent = docContent.replace(
+      /<img\s+[^>]*src="([^"]*)"[^>]*>/g,
+      (match, originalSrc) => {
+        const onDiskPath = vscode.Uri.joinPath(
+          this._context.extensionUri,
+          originalSrc
+        );
+        const newSrc = this._webviewPanel?.webview.asWebviewUri(onDiskPath);
+        return match.replace(/src="[^"]*"/, `src="${newSrc}"`);
+      }
+    );
 
     const nonce = getNonce();
 
     // Generate enhanced navigation
     const tutorialNavigation = this._generateTutorialNavigation();
+
+    // Add CSS classes for special screens
+    const bodyClasses = [];
+    if (this._tutorial.currentSection.isWelcomeScreen) {
+      bodyClasses.push("welcome-screen");
+    }
+    if (this._tutorial.currentSection.isCompletionScreen) {
+      bodyClasses.push("completion-screen");
+    }
+    const bodyClassString =
+      bodyClasses.length > 0 ? ` class="${bodyClasses.join(" ")}"` : "";
 
     return /*html*/ `
   <!DOCTYPE html>
@@ -614,14 +706,18 @@ export default class TutorialOrchestrator {
     <meta charset="UTF-8">
     <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src ${
       webview.cspSource
-    }; style-src ${webview.cspSource}; font-src ${webview.cspSource}; script-src 'nonce-${nonce}';">
+    } data:; style-src ${
+      webview.cspSource
+    } 'unsafe-inline' https://fonts.googleapis.com; font-src ${
+      webview.cspSource
+    } https://fonts.gstatic.com; script-src 'nonce-${nonce}'; connect-src 'none'; object-src 'none'; frame-src 'none';">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="${styleVSCodeUri}" rel="stylesheet">
     <link href="${styleMainUri}" rel="stylesheet">
     <link href="${codiconsUri}" rel="stylesheet" />
     <title>ZenML Interactive Tutorial</title>
   </head>
-  <body>
+  <body${bodyClassString}>
     <header>
       ${tutorialNavigation}
     </header>
