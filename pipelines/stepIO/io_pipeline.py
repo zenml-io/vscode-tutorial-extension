@@ -4,6 +4,8 @@ from typing_extensions import Annotated
 from zenml import pipeline, step
 from zenml.logger import get_logger
 
+from utils import log_dashboard_urls
+
 logger = get_logger(__name__)
 
 
@@ -16,8 +18,12 @@ def load_data() -> Tuple[
 
 
 @step
-def count_rows(features: list[int], labels: list[int]) -> Annotated[int, "row_count"]:
-    logger.info(f"Counting rows for {len(features)} features and {len(labels)} labels")
+def count_rows(
+    features: list[int], labels: list[int]
+) -> Annotated[int, "row_count"]:
+    logger.info(
+        f"Counting rows for {len(features)} features and {len(labels)} labels"
+    )
     return len(features)
 
 
@@ -31,3 +37,5 @@ if __name__ == "__main__":
     run = io_pipeline()
     rows = run.steps["count_rows"].outputs["row_count"][0].load()
     logger.info(f"▶︎ Pipeline completed with {rows} rows")
+
+    log_dashboard_urls("io_pipeline")
