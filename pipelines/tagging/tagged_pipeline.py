@@ -13,7 +13,7 @@ import pandas as pd
 from zenml import ArtifactConfig, Tag, add_tags, pipeline, step
 from zenml.logger import get_logger
 
-from utils import log_dashboard_urls
+from utils import log_dashboard_urls  # type: ignore
 
 logger = get_logger(__name__)
 

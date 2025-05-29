@@ -11,7 +11,7 @@ from zenml import get_step_context, pipeline, step
 from zenml.client import Client
 from zenml.logger import get_logger
 
-from utils import log_dashboard_urls
+from utils import log_dashboard_urls  # type: ignore
 
 logger = get_logger(__name__)
 

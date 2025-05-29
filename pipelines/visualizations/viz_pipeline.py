@@ -8,7 +8,7 @@ from zenml import pipeline, step
 from zenml.logger import get_logger
 from zenml.types import HTMLString
 
-from utils import log_dashboard_urls
+from utils import log_dashboard_urls  # type: ignore
 
 logger = get_logger(__name__)
 

@@ -2,7 +2,7 @@ from typing_extensions import Annotated
 from zenml import log_metadata, pipeline, step
 from zenml.logger import get_logger
 
-from utils import log_dashboard_urls
+from utils import log_dashboard_urls  # type: ignore
 
 logger = get_logger(__name__)
 
