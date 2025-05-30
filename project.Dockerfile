@@ -12,8 +12,8 @@ WORKDIR /home/coder/workspace
 # Copy the specific project's requirements file
 COPY ./${PROJECT_DIR_NAME}/requirements.txt /tmp/requirements.txt
 
-# Install project-specific dependencies
-RUN pip install --no-cache-dir -r /tmp/requirements.txt && \
+# Install project-specific dependencies using uv for faster installation
+RUN uv pip install --system --no-cache -r /tmp/requirements.txt && \
     rm /tmp/requirements.txt
 
 # Copy the entire project directory into the standard workspace location
