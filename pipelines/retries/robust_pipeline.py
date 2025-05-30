@@ -9,6 +9,11 @@ import time
 from typing_extensions import Annotated
 from zenml import pipeline, step
 from zenml.config import StepRetryConfig
+from zenml.logger import get_logger
+
+from utils import log_dashboard_urls
+
+logger = get_logger(__name__)
 
 
 # ──────────────── hook functions ────────────────
@@ -41,6 +46,8 @@ if __name__ == "__main__":
     step_run = run.steps["flaky"]
     if step_run.status == "COMPLETED":
         msg = step_run.outputs["result"][0].load()
-        print("▶︎ Final result:", msg)
+        logger.info(f"▶︎ Final result: {msg}")
     else:
-        print("▶︎ Pipeline ended in state:", step_run.status)
+        logger.info(f"▶︎ Pipeline ended in state: {step_run.status}")
+
+    log_dashboard_urls("robust_pipeline")

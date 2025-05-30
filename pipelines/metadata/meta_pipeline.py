@@ -2,6 +2,8 @@ from typing_extensions import Annotated
 from zenml import log_metadata, pipeline, step
 from zenml.logger import get_logger
 
+from utils import log_dashboard_urls  # type: ignore
+
 logger = get_logger(__name__)
 
 
@@ -24,3 +26,5 @@ if __name__ == "__main__":
     logger.info("Starting metadata logging pipeline")
     meta_pipeline()
     logger.info("Pipeline completed - check dashboard for accuracy card")
+
+    log_dashboard_urls("meta_pipeline")

@@ -11,6 +11,8 @@ from zenml import get_step_context, pipeline, step
 from zenml.client import Client
 from zenml.logger import get_logger
 
+from utils import log_dashboard_urls  # type: ignore
+
 logger = get_logger(__name__)
 
 
@@ -65,3 +67,5 @@ if __name__ == "__main__":
 
     final = run.steps["combine"].outputs["combined"][0].load()
     logger.info(f"▶︎ Final fan-in result: {final}")
+
+    log_dashboard_urls("fan_pipeline")

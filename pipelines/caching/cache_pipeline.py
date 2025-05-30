@@ -4,6 +4,8 @@ from typing_extensions import Annotated
 from zenml import pipeline, step
 from zenml.logger import get_logger
 
+from utils import log_dashboard_urls  # type: ignore
+
 logger = get_logger(__name__)
 
 
@@ -26,3 +28,5 @@ if __name__ == "__main__":
 
     logger.info("Second run - should be instant (cache hit)")
     cache_pipeline()  # second run instant (cache hit)
+
+    log_dashboard_urls("cache_pipeline")

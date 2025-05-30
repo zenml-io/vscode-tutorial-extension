@@ -1,6 +1,8 @@
 from zenml import pipeline, step
 from zenml.logger import get_logger
 
+from utils import log_dashboard_urls  # type: ignore
+
 logger = get_logger(__name__)
 
 
@@ -19,3 +21,5 @@ if __name__ == "__main__":
     run = hello_pipeline()
     out = run.steps["say_hello"].outputs["output"][0].load()
     logger.info(f"▶︎ Step returned: {out}")
+
+    log_dashboard_urls("hello_pipeline")
