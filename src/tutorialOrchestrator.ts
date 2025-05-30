@@ -271,48 +271,20 @@ export default class TutorialOrchestrator {
   }
 
   private _generateTutorialNavigation(): string {
-    const currentIndex = this._tutorial.currentSection.index;
-    const totalSections = this._tutorial.sections.length;
-    const isFirst = currentIndex === 0;
-    const isLast = currentIndex === totalSections - 1;
-    const isWelcomeScreen = this._tutorial.currentSection.isWelcomeScreen;
-    const isCompletionScreen = this._tutorial.currentSection.isCompletionScreen;
-
-    // For welcome screen, show "Start Tutorial" instead of "Next"
-    const nextButtonText = isWelcomeScreen ? "Start Tutorial" : "Next";
-    const nextButtonIcon = isWelcomeScreen
-      ? "codicon-play"
-      : "codicon-chevron-right";
-
-    // For completion screen, show "Restart Tutorial" instead of "Next"
-    const finalNextText = isCompletionScreen
-      ? "Restart Tutorial"
-      : nextButtonText;
-    const finalNextIcon = isCompletionScreen
-      ? "codicon-refresh"
-      : nextButtonIcon;
+    const currentSection = this._tutorial.currentSection;
+    const isFirst = currentSection.index === 0;
+    const isLast = currentSection.index === this._tutorial.sections.length - 1;
+    const isCompletionScreen = currentSection.isCompletionScreen;
 
     return `
       <div class="tutorial-header">
        <div class="tutorial-nav">
-          <button class="nav-button prev ${
-            isFirst ? "disabled" : ""
-          }" id="nav-previous" ${isFirst ? "disabled" : ""}>
-            <i class="codicon codicon-chevron-left"></i>
-            <span>Prev</span>
-          </button>
           <div class="tutorial-title">
             <h2>${this._tutorial.currentSection.title}</h2>
             <p class="tutorial-description">
               ${this._tutorial.currentSection.description}
             </p>
           </div>
-          <button class="nav-button next ${
-            isLast && !isCompletionScreen ? "disabled" : ""
-          }" id="nav-next" ${isLast && !isCompletionScreen ? "disabled" : ""}>
-            <i class="codicon ${finalNextIcon}"></i>
-            <span>${finalNextText}</span>
-          </button>
         </div>
       </div>
     `;
@@ -727,8 +699,8 @@ export default class TutorialOrchestrator {
     <footer>
       ${
         this._tutorial.currentSection.canRunPipeline
-          ? '<button class="run-pipeline-button" id="run-pipeline"><i class="codicon codicon-play"></i><span>Run Pipeline</span></button>'
-          : ""
+          ? this._generateFooterNavigation()
+          : this._generateFooterNavigationOnly()
       }
     </footer>
     
@@ -777,5 +749,84 @@ export default class TutorialOrchestrator {
     </script>
   </body>
   </html>`;
+  }
+
+  private _generateFooterNavigation() {
+    const currentSection = this._tutorial.currentSection;
+    const isFirst = currentSection.index === 0;
+    const isLast = currentSection.index === this._tutorial.sections.length - 1;
+    const isWelcomeScreen = currentSection.isWelcomeScreen;
+    const isCompletionScreen = currentSection.isCompletionScreen;
+
+    // For welcome screen, show "Start Tutorial" instead of "Next"
+    const nextButtonText = isWelcomeScreen ? "Start Tutorial" : "Next";
+    const nextButtonIcon = isWelcomeScreen
+      ? "codicon-play"
+      : "codicon-chevron-right";
+
+    // For completion screen, show "Restart Tutorial" instead of "Next"
+    const finalNextText = isCompletionScreen
+      ? "Restart Tutorial"
+      : nextButtonText;
+    const finalNextIcon = isCompletionScreen
+      ? "codicon-refresh"
+      : nextButtonIcon;
+
+    return `
+      <button class="footer-nav-button prev ${
+        isFirst ? "disabled" : ""
+      }" id="nav-previous" ${isFirst ? "disabled" : ""}>
+        <i class="codicon codicon-chevron-left"></i>
+        <span>Prev</span>
+      </button>
+      <button class="run-pipeline-button" id="run-pipeline">
+        <i class="codicon codicon-play"></i>
+        <span>Run Pipeline</span>
+      </button>
+      <button class="footer-nav-button next ${
+        isLast && !isCompletionScreen ? "disabled" : ""
+      }" id="nav-next" ${isLast && !isCompletionScreen ? "disabled" : ""}>
+        <i class="codicon ${finalNextIcon}"></i>
+        <span>${finalNextText}</span>
+      </button>
+    `;
+  }
+
+  private _generateFooterNavigationOnly() {
+    const currentSection = this._tutorial.currentSection;
+    const isFirst = currentSection.index === 0;
+    const isLast = currentSection.index === this._tutorial.sections.length - 1;
+    const isWelcomeScreen = currentSection.isWelcomeScreen;
+    const isCompletionScreen = currentSection.isCompletionScreen;
+
+    // For welcome screen, show "Start Tutorial" instead of "Next"
+    const nextButtonText = isWelcomeScreen ? "Start Tutorial" : "Next";
+    const nextButtonIcon = isWelcomeScreen
+      ? "codicon-play"
+      : "codicon-chevron-right";
+
+    // For completion screen, show "Restart Tutorial" instead of "Next"
+    const finalNextText = isCompletionScreen
+      ? "Restart Tutorial"
+      : nextButtonText;
+    const finalNextIcon = isCompletionScreen
+      ? "codicon-refresh"
+      : nextButtonIcon;
+
+    return `
+      <button class="footer-nav-button prev ${
+        isFirst ? "disabled" : ""
+      }" id="nav-previous" ${isFirst ? "disabled" : ""}>
+        <i class="codicon codicon-chevron-left"></i>
+        <span>Prev</span>
+      </button>
+      <div class="footer-spacer"></div>
+      <button class="footer-nav-button next ${
+        isLast && !isCompletionScreen ? "disabled" : ""
+      }" id="nav-next" ${isLast && !isCompletionScreen ? "disabled" : ""}>
+        <i class="codicon ${finalNextIcon}"></i>
+        <span>${finalNextText}</span>
+      </button>
+    `;
   }
 }
