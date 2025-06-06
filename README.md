@@ -45,10 +45,10 @@ The extension runs in two places:
 1. **Build extension**:
 
    ```bash
-   npm run buildExtension:replace
+   npm run buildExtension
    ```
 
-   _This packages the extension and updates both repos (requires repos to be side-by-side)_
+   _This packages the extension and replaces the current one in `.devcontainer/extensions/`_
 
 2. **Test in user environment**: Test changes in both GitHub Codespaces and local dev containers
 
