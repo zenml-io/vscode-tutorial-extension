@@ -72,20 +72,17 @@ The extension runs in two places:
 - Edit `tutorialMetadata.json`
 - Each section has steps with optional `doc` (markdown) and `code` (Python) files
 
-### 🔔 Automated Pipeline Health Checks
+### 🔔 Pipeline Health Checks
 
-This repo has a GitHub Actions workflow ([`.github/workflows/test-pipelines.yml`](.github/workflows/test-pipelines.yml)) that keeps our example pipelines green against the **latest ZenML release**:
+**Workflow**: [`.github/workflows/test-pipelines.yml`](.github/workflows/test-pipelines.yml)
 
-| What it does                                                                       | Process                                                                               |
-| ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| **Runs every 24 h at 09:00 UTC** (plus on every push / PR to `main` and `develop`) | Cron trigger: `0 9 * * *`                                                             |
-| **Executes all tutorial pipelines** listed in the matrix                           | Each pipeline is run inside a fresh runner with ZenML upgraded to the newest version. |
-| **Alerts our SREs on Discord ** if any pipeline fails                              | On failure the job posts an alert to **`#sre-alerts`** via `DISCORD_WEBHOOK_SRE`.     |
+| Trigger                                            | Action                                       | Alert                                                                             |
+| -------------------------------------------------- | -------------------------------------------- | --------------------------------------------------------------------------------- |
+| Daily @ 09:00 UTC + on push/PR to `main`/`develop` | Run all tutorial pipelines with latest ZenML | On any failure, sends a single message to `#sre-alerts` via `DISCORD_WEBHOOK_SRE` |
 
-> The following repo secrets are set for the discord alerter:
-> `DISCORD_TOKEN_SRE`, `DISCORD_SRE_CHANNEL_ID`, and `DISCORD_WEBHOOK_SRE`.
+> **Secrets required**: `DISCORD_TOKEN_SRE`, `DISCORD_SRE_CHANNEL_ID`, `DISCORD_WEBHOOK_SRE`
 
-Keeping an eye on this channel lets us catch breaking changes in ZenML or our tutorial code before users do.
+This ensures we catch any breaking changes in ZenML or our tutorials before users do.
 
 ## 🐳 Docker Image
 
