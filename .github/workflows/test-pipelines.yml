@@ -34,6 +34,7 @@ jobs:
       - name: Initialize ZenML
         run: |
           zenml init
+          zenml integration install aws s3 -y
 
       - name: Run all tutorial pipelines
         id: run_all
