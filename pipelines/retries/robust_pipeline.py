@@ -41,14 +41,13 @@ def robust_pipeline():
 
 # ──────────────── run & inspect ────────────────
 if __name__ == "__main__":
-    try:
-        run = robust_pipeline()
-        step_run = run.steps["flaky"]
-        if step_run.status != "COMPLETED":
-            logger.warning("Demo pipeline ended in %s (expected occasionally)", step_run.status)
-    except Exception as e:
-        logger.warning("Demo pipeline failed after retries (expected): %s", e)
-    finally:
-        log_dashboard_urls("robust_pipeline")
-    # Always succeed so GH Actions won’t mark this script as a failure
-    exit(0)
+    run = robust_pipeline()
+
+    step_run = run.steps["flaky"]
+    if step_run.status == "COMPLETED":
+        msg = step_run.outputs["result"][0].load()
+        logger.info(f"▶︎ Final result: {msg}")
+    else:
+        logger.info(f"▶︎ Pipeline ended in state: {step_run.status}")
+
+    log_dashboard_urls("robust_pipeline")
