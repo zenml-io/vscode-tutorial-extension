@@ -80,8 +80,6 @@ The extension runs in two places:
 | -------------------------------------------------- | -------------------------------------------- | --------------------------------------------------------------------------------- |
 | Daily @ 09:00 UTC + on push/PR to `main`/`develop` | Run all tutorial pipelines with latest ZenML | On any failure, sends a single message to `#sre-alerts` via `DISCORD_WEBHOOK_SRE` |
 
-> **Secrets required**: `DISCORD_TOKEN_SRE`, `DISCORD_SRE_CHANNEL_ID`, `DISCORD_WEBHOOK_SRE`
-
 This ensures we catch any breaking changes in ZenML or our tutorials before users do.
 
 ## 🐳 Docker Image
