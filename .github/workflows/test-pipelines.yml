@@ -14,21 +14,6 @@ jobs:
   test-pipelines:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        pipeline:
-          - { name: "Hello World", path: "pipelines/helloWorld", file: "hello_pipeline.py" }
-          - { name: "Caching", path: "pipelines/caching", file: "cache_pipeline.py" }
-          - { name: "Fan Out", path: "pipelines/fanOut", file: "fan_pipeline.py" }
-          - { name: "Metadata", path: "pipelines/metadata", file: "meta_pipeline.py" }
-          - { name: "Parameters", path: "pipelines/parameters", file: "param_pipeline.py" }
-          - { name: "Retries", path: "pipelines/retries", file: "robust_pipeline.py" }
-          - { name: "Step I/O", path: "pipelines/stepIO", file: "io_pipeline.py" }
-          - { name: "Tagging", path: "pipelines/tagging", file: "tagged_pipeline.py" }
-          - { name: "Visualizations", path: "pipelines/visualizations", file: "viz_pipeline.py" }
-          - { name: "YAML Config", path: "pipelines/yamlConfig", file: "yaml_pipeline.py" }
-      fail-fast: false
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -41,50 +26,55 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          # Install latest ZenML version
           pip install zenml[server] --upgrade
-          # Install project dependencies
           pip install -r requirements.txt
 
-      - name: Initialize ZenML
+      - name: Initialize ZenML & Discord alerter
         run: |
           zenml init
           zenml integration install discord -y
+          if [ -n "${{ secrets.DISCORD_TOKEN_SRE }}" ] && [ -n "${{ secrets.DISCORD_SRE_CHANNEL_ID }}" ]; then
+            zenml secret create discord_secret --discord_token="${{ secrets.DISCORD_TOKEN_SRE }}" || true
+            zenml alerter register discord_alerter \
+              --flavor=discord \
+              --discord_token="${{ secrets.DISCORD_TOKEN_SRE }}" \
+              --default_discord_channel_id="${{ secrets.DISCORD_SRE_CHANNEL_ID }}" || true
+            zenml stack update default -al discord_alerter || true
+          fi
 
-      - name: Set up Discord alerter (if secrets available)
-        env:
-          DISCORD_TOKEN_SRE: ${{ secrets.DISCORD_TOKEN_SRE }}
-          DISCORD_SRE_CHANNEL_ID: ${{ secrets.DISCORD_SRE_CHANNEL_ID }}
-        if: ${{ env.DISCORD_TOKEN_SRE != '' && env.DISCORD_SRE_CHANNEL_ID != '' }}
+      - name: Run all tutorial pipelines
+        id: run_all
         run: |
-          # Create Discord secret
-          zenml secret create discord_secret --discord_token="${DISCORD_TOKEN_SRE}" || true
-          # Register Discord alerter
-          zenml alerter register discord_alerter \
-            --flavor=discord \
-            --discord_token="${DISCORD_TOKEN_SRE}" \
-            --default_discord_channel_id="${DISCORD_SRE_CHANNEL_ID}" || true
-          # Add to default stack
-          zenml stack update default -al discord_alerter || true
+          failed=()
+          for p in \
+            "pipelines/helloWorld/hello_pipeline.py" \
+            "pipelines/caching/cache_pipeline.py" \
+            "pipelines/fanOut/fan_pipeline.py" \
+            "pipelines/metadata/meta_pipeline.py" \
+            "pipelines/parameters/param_pipeline.py" \
+            "pipelines/retries/robust_pipeline.py" \
+            "pipelines/stepIO/io_pipeline.py" \
+            "pipelines/tagging/tagged_pipeline.py" \
+            "pipelines/visualizations/viz_pipeline.py" \
+            "pipelines/yamlConfig/yaml_pipeline.py"; do
 
-      - name: Run ${{ matrix.pipeline.name }} Pipeline
-        id: run_pipeline
-        continue-on-error: true
-        run: |
-          echo "Running ${{ matrix.pipeline.name }} pipeline..."
-          cd ${{ matrix.pipeline.path }}
-          PYTHONPATH=$GITHUB_WORKSPACE:$PYTHONPATH python ${{ matrix.pipeline.file }}
+            echo "Running $p…"
+            if ! PYTHONPATH=$GITHUB_WORKSPACE:$PYTHONPATH python "$p"; then
+              echo "❌ $p failed"
+              failed+=("$p")
+            fi
+          done
 
-      - name: Check pipeline result
-        if: steps.run_pipeline.outcome == 'failure'
-        run: |
-          echo "Pipeline ${{ matrix.pipeline.name }} failed!"
-          exit 1
+          if [ "${#failed[@]}" -gt 0 ]; then
+            echo "Failed pipelines:"
+            printf " - %s\n" "${failed[@]}"
+            exit 1
+          fi
 
   notify-discord:
     needs: test-pipelines
-    runs-on: ubuntu-latest
     if: ${{ failure() }}
+    runs-on: ubuntu-latest
 
     steps:
       - name: Send Discord notification on failure
@@ -93,17 +83,12 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_SRE }}
         with:
           args: |
-            🚨 **Pipeline Test Failure Alert** 🚨
+            **Pipeline Test Failure Alert**
 
-            **Repository:** ${{ github.repository }}
-            **Branch:** ${{ github.ref_name }}
-            **Workflow:** ${{ github.workflow }}
-            **Run:** ${{ github.run_id }}
+            Repository: ${{ github.repository }}
+            Branch: ${{ github.ref_name }}
+            Workflow: ${{ github.workflow }}
+            Run ID: ${{ github.run_id }}
 
-            Some tutorial pipelines failed to run with the latest ZenML version.
-
-            **Details:** ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-
-            Please investigate and fix the failing pipelines.
-
-            @here #sre-alerts
+            One or more tutorial pipelines failed with the latest ZenML version.
+            Details: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
