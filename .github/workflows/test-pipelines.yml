@@ -31,18 +31,9 @@ jobs:
           pip install zenml[server] --upgrade
           pip install -r requirements.txt
 
-      - name: Initialize ZenML & Discord alerter
+      - name: Initialize ZenML
         run: |
           zenml init
-          zenml integration install discord -y
-          if [ -n "${{ secrets.DISCORD_TOKEN_SRE }}" ] && [ -n "${{ secrets.DISCORD_SRE_CHANNEL_ID }}" ]; then
-            zenml secret create discord_secret --discord_token="${{ secrets.DISCORD_TOKEN_SRE }}" || true
-            zenml alerter register discord_alerter \
-              --flavor=discord \
-              --discord_token="${{ secrets.DISCORD_TOKEN_SRE }}" \
-              --default_discord_channel_id="${{ secrets.DISCORD_SRE_CHANNEL_ID }}" || true
-            zenml stack update default -al discord_alerter || true
-          fi
 
       - name: Run all tutorial pipelines
         id: run_all
