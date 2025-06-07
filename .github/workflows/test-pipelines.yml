@@ -69,11 +69,11 @@ jobs:
 
       - name: Run ${{ matrix.pipeline.name }} Pipeline
         id: run_pipeline
-        working-directory: ${{ matrix.pipeline.path }}
         continue-on-error: true
         run: |
           echo "Running ${{ matrix.pipeline.name }} pipeline..."
-          python ${{ matrix.pipeline.file }}
+          cd ${{ matrix.pipeline.path }}
+          PYTHONPATH=$GITHUB_WORKSPACE:$PYTHONPATH python ${{ matrix.pipeline.file }}
 
       - name: Check pipeline result
         if: steps.run_pipeline.outcome == 'failure'
