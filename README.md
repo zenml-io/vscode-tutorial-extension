@@ -45,10 +45,10 @@ The extension runs in two places:
 1. **Build extension**:
 
    ```bash
-   npm run buildExtension:replace
+   npm run buildExtension
    ```
 
-   _This packages the extension and updates both repos (requires repos to be side-by-side)_
+   _This packages the extension and replaces the current one in `.devcontainer/extensions/`_
 
 2. **Test in user environment**: Test changes in both GitHub Codespaces and local dev containers
 
@@ -71,6 +71,16 @@ The extension runs in two places:
 
 - Edit `tutorialMetadata.json`
 - Each section has steps with optional `doc` (markdown) and `code` (Python) files
+
+### 🔔 Pipeline Health Checks
+
+**Workflow**: [`.github/workflows/test-pipelines.yml`](.github/workflows/test-pipelines.yml)
+
+| Trigger                                            | Action                                       | Alert                                                                             |
+| -------------------------------------------------- | -------------------------------------------- | --------------------------------------------------------------------------------- |
+| Daily @ 09:00 UTC + on push/PR to `main`/`develop` | Run all tutorial pipelines with latest ZenML | On any failure, sends a single message to `#sre-alerts` via `DISCORD_WEBHOOK_SRE` |
+
+This ensures we catch any breaking changes in ZenML or our tutorials before users do.
 
 ## 🐳 Docker Image
 

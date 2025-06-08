@@ -1,0 +1,89 @@
+name: Test Tutorial Pipelines
+
+on:
+  schedule:
+    # Run daily at 9 AM UTC
+    - cron: "0 9 * * *"
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  workflow_dispatch:
+
+jobs:
+  test-pipelines:
+    runs-on: ubuntu-latest
+    env:
+      ZENML_ANALYTICS_OPT_IN: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install zenml[server] --upgrade
+          pip install -r requirements.txt
+
+      - name: Initialize ZenML
+        run: |
+          zenml init
+          zenml integration install aws s3 -y
+
+      - name: Run all tutorial pipelines
+        id: run_all
+        run: |
+          failed=()
+          for p in \
+            "pipelines/helloWorld/hello_pipeline.py" \
+            "pipelines/caching/cache_pipeline.py" \
+            "pipelines/fanOut/fan_pipeline.py" \
+            "pipelines/metadata/meta_pipeline.py" \
+            "pipelines/parameters/param_pipeline.py" \
+            "pipelines/retries/robust_pipeline.py" \
+            "pipelines/stepIO/io_pipeline.py" \
+            "pipelines/tagging/tagged_pipeline.py" \
+            "pipelines/visualizations/viz_pipeline.py" \
+            "pipelines/yamlConfig/yaml_pipeline.py"; do
+
+            echo "Running $p…"
+              if [[ "$p" == *"retries/robust_pipeline.py" ]]; then
+                PYTHONPATH=$GITHUB_WORKSPACE:$PYTHONPATH python "$p" || echo "⚠  robust_pipeline demo: failure expected"
+              else
+                PYTHONPATH=$GITHUB_WORKSPACE:$PYTHONPATH python "$p" || failed+=("$p")
+              fi
+            done
+
+          if [ "${#failed[@]}" -gt 0 ]; then
+            echo "Failed pipelines:"
+            printf " - %s\n" "${failed[@]}"
+            exit 1
+          fi
+
+  notify-discord:
+    needs: test-pipelines
+    if: ${{ failure() }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send Discord notification on failure
+        uses: Ilshidur/action-discord@master
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_SRE }}
+        with:
+          args: |
+            **Pipeline Test Failure Alert**
+
+            Repository: ${{ github.repository }}
+            Branch: ${{ github.ref_name }}
+            Workflow: ${{ github.workflow }}
+            Run ID: ${{ github.run_id }}
+
+            One or more tutorial pipelines failed with the latest ZenML version.
+            Details: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
