@@ -19,9 +19,9 @@ def log_dashboard_urls(pipeline_name: str):
     )
     dashboard_url = f"{base_url}/runs/{run.id}"
 
-    logger.info("\n" + "=" * 50)
+    logger.info("\n" + "=" * 60)
     logger.info("✅ Pipeline execution complete!")
     logger.info(f"🌐 View pipeline in dashboard: {base_url}/pipelines/{pipeline_name}")
     logger.info(f"🌐 View this run: {dashboard_url}")
     logger.info(f"🌐 View all artifacts: {base_url}/artifacts")
-    logger.info("=" * 50)
+    logger.info("=" * 60)
