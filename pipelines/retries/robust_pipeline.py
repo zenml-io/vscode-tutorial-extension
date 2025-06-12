@@ -1,8 +1,3 @@
-"""
-Demonstrates automatic retries *and* a failure hook.
-Run it a few times – roughly half will need 1–2 retries.
-"""
-
 import random
 import time
 
