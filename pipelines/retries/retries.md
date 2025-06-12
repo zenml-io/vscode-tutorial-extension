@@ -1,7 +1,3 @@
-# Retries & Hooks - Robust Pipelines
-
-Learn how to build resilient pipelines that can handle failures gracefully with automatic retries and hooks.
-
 ## What you'll learn
 
 - How to configure automatic retries for flaky steps
@@ -32,4 +28,5 @@ def flaky() -> Annotated[str, "result"]:
 
 ## Try it yourself
 
-Run this pipeline multiple times! Sometimes it succeeds immediately, sometimes it needs retries to handle the random failures.
+Run this pipeline multiple times! Sometimes it succeeds immediately, sometimes
+it needs retries to handle the random failures.

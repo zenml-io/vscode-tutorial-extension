@@ -1,7 +1,3 @@
-# Parameters - Configurable Behavior
-
-Learn how to make your pipelines configurable with parameters.
-
 ## What you'll learn
 
 - How to add parameters to steps and pipelines

@@ -1,7 +1,3 @@
-# Fan-out/Fan-in - Parallel Processing
-
-Learn how to create parallel workflows that split work across multiple steps and then combine the results.
-
 ## What you'll learn
 
 - How to create parallel processing patterns
@@ -29,4 +25,5 @@ def fan_pipeline(parallel: int = 4):
 
 ## Try it yourself
 
-Run this pipeline to see how it processes data in parallel across multiple steps, then combines the results!
+Run this pipeline to see how it processes data in parallel across multiple
+steps, then combines the results!

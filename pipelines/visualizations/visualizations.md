@@ -1,7 +1,3 @@
-# Visualizations - Custom Charts
-
-Learn how to create automatic and custom visualizations that appear in the ZenML dashboard.
-
 ## What you'll learn
 
 - How ZenML automatically visualizes common data types
@@ -32,4 +28,5 @@ def scatter(df: pd.DataFrame) -> Annotated[HTMLString, "scatter_plot"]:
 
 ## Try it yourself
 
-Run this pipeline and check the dashboard to see both the automatic DataFrame visualization and the custom scatter plot!
+Run this pipeline and check the dashboard to see both the automatic DataFrame
+visualization and the custom scatter plot!
