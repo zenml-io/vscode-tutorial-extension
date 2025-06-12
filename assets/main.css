@@ -319,7 +319,7 @@ header {
 }
 
 .tutorial-title h2 {
-  font-size: 1rem;
+  font-size: 1.25rem;
   font-weight: 600;
   color: var(--zenml-dark);
   margin: 0;
