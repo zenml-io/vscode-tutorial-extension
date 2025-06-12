@@ -14,7 +14,7 @@
 
 You Completed the Tutorial
 
-You've successfully completed the **ZenML Interactive Tutorial** and mastered the fundamentals of MLOps with ZenML!
+You've successfully completed the **ZenML Interactive Tutorial** and mastered the fundamentals of using ZenML for MLOps!
 
 </div>
 <div class="right-column">
