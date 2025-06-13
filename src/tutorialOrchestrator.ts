@@ -27,8 +27,15 @@ export default class TutorialOrchestrator {
   private _getDashboardUrl(runId?: string): string {
     const baseUrl = vscode.workspace
       .getConfiguration("zenml")
-      .get<string>("dashboardUrl", "http://localhost:8080");
-    return runId ? `${baseUrl}/workspaces/default/runs/${runId}` : baseUrl;
+      .get<string>("dashboardUrl", "https://cloud.zenml.io");
+    // If we have a run ID, show specific run, otherwise show pipelines page
+    if (runId) {
+      return `${baseUrl}/workspaces/default/runs/${runId}`;
+    } else {
+      // Get the current pipeline name from the tutorial section
+      const pipelineName = this._tutorial.currentSection.code()?.split('/').pop()?.replace('.py', '') || 'pipelines';
+      return `${baseUrl}/workspaces/default/pipelines`;
+    }
   }
 
   constructor(context: vscode.ExtensionContext, tutorial: Tutorial) {
@@ -142,7 +149,7 @@ export default class TutorialOrchestrator {
       codeRunner(
         this.terminal,
         this._codePanel.document.uri,
-        () => {
+        (dashboardUrl?: string) => {
           vscode.window.showInformationMessage("Code Ran Successfully! 🎉");
           if (callback) {
             callback();
@@ -196,7 +203,7 @@ export default class TutorialOrchestrator {
       codeRunner(
         this.terminal,
         this._codePanel.document.uri,
-        (runId?: string) => {
+        (dashboardUrl?: string) => {
           // Pipeline completed successfully
           this._pipelineRunning = false;
           this._completedTutorials.add(this._tutorial.currentSection.index);
@@ -204,19 +211,17 @@ export default class TutorialOrchestrator {
             type: "pipelineStatusUpdate",
             status: "completed",
           });
-          this._sendWebviewMessage({ type: "pipelineCompleted", runId: runId });
+          this._sendWebviewMessage({ type: "pipelineCompleted" });
 
           // Save progress
           this._saveProgress();
 
-          // Show dashboard URL
-          if (runId) {
-            const dashboardUrl = this._getDashboardUrl(runId);
-            this._sendWebviewMessage({
-              type: "showDashboardUrl",
-              url: dashboardUrl,
-            });
-          }
+          // Show dashboard URL - use the captured URL or fallback to generic
+          const finalDashboardUrl = dashboardUrl || this._getDashboardUrl();
+          this._sendWebviewMessage({
+            type: "showDashboardUrl",
+            url: finalDashboardUrl,
+          });
         },
         () => {
           // Pipeline failed
@@ -779,10 +784,16 @@ export default class TutorialOrchestrator {
         <i class="codicon codicon-chevron-left"></i>
         <span>Prev</span>
       </button>
-      <button class="run-pipeline-button" id="run-pipeline">
-        <i class="codicon codicon-play"></i>
-        <span>Run Pipeline</span>
-      </button>
+      <div class="pipeline-button-group">
+        <button class="run-pipeline-button" id="run-pipeline">
+          <i class="codicon codicon-play"></i>
+          <span>Run Pipeline</span>
+        </button>
+        <a class="dashboard-button-small" id="dashboard-button" href="#" style="display: none;">
+          <i class="codicon codicon-link-external"></i>
+          <span>Open Dashboard</span>
+        </a>
+      </div>
       <button class="footer-nav-button next ${
         isLast && !isCompletionScreen ? "disabled" : ""
       }" id="nav-next" ${isLast && !isCompletionScreen ? "disabled" : ""}>

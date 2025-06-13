@@ -448,11 +448,107 @@ footer .run-pipeline-button.running {
 footer .run-pipeline-button.completed {
   background: var(--zenml-green);
   color: white;
+  cursor: default;
+}
+
+footer .run-pipeline-button.completed:hover {
+  background: var(--zenml-green);
+  transform: none;
+  box-shadow: none;
 }
 
 footer .run-pipeline-button.failed {
   background: var(--zenml-red);
   color: white;
+}
+
+/* Dashboard button styling */
+.dashboard-button {
+  background: var(--zenml-purple);
+  border: none;
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 140px;
+  justify-content: center;
+  font-family: "Inter", sans-serif;
+  margin: 0;
+  height: 40px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.dashboard-button:hover {
+  background: var(--zenml-purple-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(122, 62, 244, 0.3);
+  color: white;
+  text-decoration: none;
+}
+
+.dashboard-button:active {
+  transform: translateY(0);
+}
+
+.dashboard-button:visited {
+  color: white;
+}
+
+.dashboard-button .codicon {
+  font-size: 16px;
+}
+
+/* Pipeline button group */
+.pipeline-button-group {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* Dashboard button styling - smaller variant */
+.dashboard-button-small {
+  background: var(--vscode-button-secondaryBackground);
+  border: 1px solid var(--vscode-sideBar-border);
+  color: var(--vscode-button-secondaryForeground);
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: center;
+  font-family: "Inter", sans-serif;
+  margin: 0;
+  height: 36px;
+  text-decoration: none;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.dashboard-button-small:hover {
+  background: var(--vscode-button-secondaryHoverBackground);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  color: var(--vscode-button-secondaryForeground);
+  text-decoration: none;
+}
+
+.dashboard-button-small:active {
+  transform: translateY(0);
+}
+
+.dashboard-button-small .codicon {
+  font-size: 14px;
 }
 
 #progress {

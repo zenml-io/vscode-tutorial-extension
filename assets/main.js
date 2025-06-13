@@ -476,7 +476,8 @@
       } else if (status === "completed" || status === "cached") {
         runButton.innerHTML = `<i class="checkmark">✓</i> ${buttonTexts[status]}`;
         //@ts-ignore
-        runButton.disabled = false;
+        runButton.disabled = true;
+        runButton.style.cursor = "default";
       } else if (status === "failed") {
         runButton.innerHTML = `<i class="codicon codicon-error"></i> ${buttonTexts[status]}`;
         //@ts-ignore
@@ -493,14 +494,18 @@
   }
 
   function showDashboardUrl(url) {
-    const dashboardLink = document.getElementById("dashboard-link");
-    const dashboardUrl = document.getElementById("dashboard-url");
+    const dashboardButton = document.getElementById("dashboard-button");
 
-    if (dashboardLink && dashboardUrl) {
+    if (dashboardButton) {
       //@ts-ignore
-      dashboardUrl.href = url;
-      dashboardUrl.textContent = "View Pipeline in Dashboard";
-      dashboardLink.style.display = "flex";
+      dashboardButton.href = url;
+      dashboardButton.style.display = "flex";
+      
+      // Add click handler to open in external browser
+      dashboardButton.onclick = function(e) {
+        e.preventDefault();
+        vscode.postMessage({ type: "openDashboard", url: url });
+      };
     }
   }
 
