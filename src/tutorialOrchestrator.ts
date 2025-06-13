@@ -32,8 +32,7 @@ export default class TutorialOrchestrator {
     if (runId) {
       return `${baseUrl}/workspaces/default/runs/${runId}`;
     } else {
-      // Get the current pipeline name from the tutorial section
-      const pipelineName = this._tutorial.currentSection.code()?.split('/').pop()?.replace('.py', '') || 'pipelines';
+      // Fallback to generic pipelines page when no specific run ID
       return `${baseUrl}/workspaces/default/pipelines`;
     }
   }
