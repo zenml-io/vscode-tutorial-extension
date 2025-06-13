@@ -502,10 +502,10 @@
       dashboardButton.style.display = "flex";
       
       // Add click handler to open in external browser
-      dashboardButton.onclick = function(e) {
+      dashboardButton.addEventListener('click', function(e) {
         e.preventDefault();
         vscode.postMessage({ type: "openDashboard", url: url });
-      };
+      });
     }
   }
 
