@@ -7,8 +7,8 @@ import getNonce from "./getNonce";
 export default function codeRunner(
   terminal: vscode.Terminal,
   fileUri: vscode.Uri,
-  onSuccessCallback?: Function,
-  onErrorCallback?: Function
+  onSuccessCallback?: (dashboardUrl?: string) => void,
+  onErrorCallback?: () => void
 ) {
   const uniqueId = getNonce();
 
@@ -71,8 +71,8 @@ function runCode(
 function initializeFileWatcher(
   filePath: string,
   uniqueId: string,
-  onSuccessCallback?: Function,
-  onFailureCallback?: Function
+  onSuccessCallback?: (dashboardUrl?: string) => void,
+  onFailureCallback?: () => void
 ) {
   const removeLastFileFromPath = (filePath: string) => {
     let sections = filePath.split("/");
