@@ -25,6 +25,5 @@ def log_dashboard_urls(pipeline_name: str):
     logger.info(f"🌐 View this run: {dashboard_url}")
     logger.info(f"🌐 View all artifacts: {base_url}/artifacts")
     logger.info("=" * 60)
-    
     # Print dashboard URL for VSCode extension to capture
     print(f"DASHBOARD_URL:{dashboard_url}")
