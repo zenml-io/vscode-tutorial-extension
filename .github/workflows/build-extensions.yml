@@ -1,0 +1,94 @@
+name: Build VSCode Extensions
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  workflow_dispatch:
+    inputs:
+      force_rebuild:
+        description: 'Force rebuild even if no changes detected'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  build-extensions:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install vsce globally
+        run: npm install -g @vscode/vsce
+
+      - name: Build tutorial extension
+        run: |
+          echo "Building tutorial extension..."
+          npm run buildExtension
+
+      - name: Build theme extension
+        run: |
+          echo "Building theme extension..."
+          cd themes && npx @vscode/vsce package --out ../zenml-color-theme.vsix
+
+      - name: Verify extensions were built
+        run: |
+          echo "Checking built extensions..."
+          if [ -d ".devcontainer/extensions" ]; then
+            echo "Tutorial extension files:"
+            ls -la .devcontainer/extensions/
+          else
+            echo "ERROR: .devcontainer/extensions directory not found"
+            exit 1
+          fi
+          
+          if [ -f "zenml-color-theme.vsix" ]; then
+            echo "Theme extension built successfully:"
+            ls -la zenml-color-theme.vsix
+          else
+            echo "ERROR: zenml-color-theme.vsix not found"
+            exit 1
+          fi
+
+      - name: Upload tutorial extension artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: tutorial-extension
+          path: .devcontainer/extensions/zenml-codespace-tutorial-*.vsix
+
+      - name: Upload theme extension artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: theme-extension
+          path: zenml-color-theme.vsix
+
+      - name: Commit and push built extensions
+        # Only commit on push to main/develop branches, not on PRs
+        if: github.event_name == 'push' || github.event.inputs.force_rebuild == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          
+          # Add the built extensions to git
+          git add .devcontainer/extensions/zenml-codespace-tutorial-*.vsix
+          git add zenml-color-theme.vsix
+          
+          # Check if there are any changes to commit
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Auto-build extensions [skip ci]"
+            git push
+          fi 
