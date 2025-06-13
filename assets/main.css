@@ -517,9 +517,9 @@ footer .run-pipeline-button.failed {
   background: var(--vscode-button-secondaryBackground);
   border: 1px solid var(--vscode-sideBar-border);
   color: var(--vscode-button-secondaryForeground);
-  padding: 8px 16px;
+  padding: 10px 16px;
   border-radius: 6px;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -529,7 +529,7 @@ footer .run-pipeline-button.failed {
   justify-content: center;
   font-family: "Inter", sans-serif;
   margin: 0;
-  height: 36px;
+  height: 40px;
   text-decoration: none;
   flex-shrink: 0;
   white-space: nowrap;

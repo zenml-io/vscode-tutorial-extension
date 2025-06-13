@@ -791,7 +791,7 @@ export default class TutorialOrchestrator {
         </button>
         <a class="dashboard-button-small" id="dashboard-button" href="#" style="display: none;">
           <i class="codicon codicon-link-external"></i>
-          <span>Open Dashboard</span>
+          <span>View in dashboard</span>
         </a>
       </div>
       <button class="footer-nav-button next ${
