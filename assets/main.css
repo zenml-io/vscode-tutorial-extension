@@ -462,48 +462,6 @@ footer .run-pipeline-button.failed {
   color: white;
 }
 
-/* Dashboard button styling */
-.dashboard-button {
-  background: var(--zenml-purple);
-  border: none;
-  color: #ffffff;
-  padding: 10px 20px;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  min-width: 140px;
-  justify-content: center;
-  font-family: "Inter", sans-serif;
-  margin: 0;
-  height: 40px;
-  text-decoration: none;
-  flex-shrink: 0;
-}
-
-.dashboard-button:hover {
-  background: var(--zenml-purple-dark);
-  transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(122, 62, 244, 0.3);
-  color: white;
-  text-decoration: none;
-}
-
-.dashboard-button:active {
-  transform: translateY(0);
-}
-
-.dashboard-button:visited {
-  color: white;
-}
-
-.dashboard-button .codicon {
-  font-size: 16px;
-}
 
 /* Pipeline button group */
 .pipeline-button-group {
