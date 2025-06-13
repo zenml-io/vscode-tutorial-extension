@@ -35,6 +35,7 @@ function runCode(
   const projectRoot = path.resolve(path.dirname(filePath), "../..");
 
   const dashboardUrlFile = path.join(os.tmpdir(), `dashboard_url_${uniqueId}.txt`);
+  const pipelineOutputLog = path.join(os.tmpdir(), `pipeline_output_${uniqueId}.log`);
   
   writeFileSync(
     scriptPath,
@@ -45,14 +46,14 @@ function runCode(
     cd "${projectRoot}"
     export PYTHONPATH="${projectRoot}:$PYTHONPATH"
     # Capture output to extract dashboard URL
-    python "${filePath}" 2>&1 | tee /tmp/pipeline_output_${uniqueId}.log
+    python "${filePath}" 2>&1 | tee "${pipelineOutputLog}"
     RESULT=$?
     
     # Extract dashboard URL if present
-    grep "DASHBOARD_URL:" /tmp/pipeline_output_${uniqueId}.log | tail -1 | cut -d':' -f2- > "${dashboardUrlFile}"
+    grep "DASHBOARD_URL:" "${pipelineOutputLog}" | tail -1 | cut -d':' -f2- > "${dashboardUrlFile}"
     
     # Clean up
-    rm -f /tmp/pipeline_output_${uniqueId}.log
+    rm -f "${pipelineOutputLog}"
     
     if [ $RESULT -eq 0 ]; then
       touch "${successFilePath}"
