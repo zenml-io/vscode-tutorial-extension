@@ -11,9 +11,8 @@ logger = get_logger(__name__)
 
 @step(enable_cache=True)
 def slow_step() -> Annotated[int, "answer"]:
-    logger.info("Starting slow computation (3 seconds)...")
+    logger.info("🔄 Actually computing result... (sleeping 3 seconds)")
     time.sleep(3)
-    logger.info("Computation completed!")
     return 42
 
 
@@ -23,10 +22,17 @@ def cache_pipeline():
 
 
 if __name__ == "__main__":
-    logger.info("First run - will take ~3 seconds")
-    cache_pipeline()  # first run ~3 s
+    logger.info("\n" + "="*60)
+    logger.info(">>> RUN 1: First execution (no cache available)")
+    logger.info("="*60)
+    cache_pipeline()
 
-    logger.info("Second run - should be instant (cache hit)")
-    cache_pipeline()  # second run instant (cache hit)
+    logger.info("\n" + "="*60)
+    logger.info(">>> RUN 2: Second execution (cache should be used)")
+    logger.info("="*60)
+    cache_pipeline()
+    
+    logger.info("\n💡 Notice: The step's log message only appears in Run 1!")
+    logger.info("   In Run 2, the step was skipped entirely due to caching.")
 
     log_dashboard_urls("cache_pipeline")

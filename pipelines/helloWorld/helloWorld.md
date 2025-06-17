@@ -1,5 +1,3 @@
-# Hello World - Steps & Pipelines
-
 Welcome to your first ZenML pipeline! This tutorial introduces the fundamental concepts of **steps** and **pipelines**.
 
 ## What you'll learn
@@ -30,4 +28,5 @@ def hello_pipeline():
 
 ## Try it yourself
 
-Click the **Run Pipeline** button to execute your first ZenML pipeline and see the output!
+Click the **Run Pipeline** button to execute your first ZenML pipeline and see
+the output!

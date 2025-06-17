@@ -1,12 +1,3 @@
-"""
-Artifact Tagging Demonstration
-This example shows different ways to tag artifacts in ZenML:
-1. Regular tags on artifacts using ArtifactConfig
-2. Cascade tags from pipeline to artifacts
-3. Dynamic tagging within steps
-4. Filtering artifacts by tags
-"""
-
 from typing import Annotated
 
 import pandas as pd

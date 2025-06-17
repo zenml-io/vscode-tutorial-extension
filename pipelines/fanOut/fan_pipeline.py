@@ -1,11 +1,3 @@
-"""
-Shows parallel fan-out (multiple identical steps) and a fan-in step that
-gathers all their outputs via the Client API.
-
-Run it once and observe the printed summary.  Re-run: cache is OFF so you
-see the steps execute every time.
-"""
-
 from typing_extensions import Annotated
 from zenml import get_step_context, pipeline, step
 from zenml.client import Client

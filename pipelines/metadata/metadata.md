@@ -1,7 +1,3 @@
-# Metadata - Recording Useful Facts
-
-Learn how to log metadata to track important information about your pipeline runs.
-
 ## What you'll learn
 
 - How to use `log_metadata()` to record key information

@@ -1,4 +1,4 @@
-import { unlinkSync, writeFileSync } from "fs";
+import { existsSync, readFileSync, unlinkSync, writeFileSync } from "fs";
 import os from "os";
 import path from "path";
 import * as vscode from "vscode";
@@ -7,8 +7,8 @@ import getNonce from "./getNonce";
 export default function codeRunner(
   terminal: vscode.Terminal,
   fileUri: vscode.Uri,
-  onSuccessCallback?: Function,
-  onErrorCallback?: Function
+  onSuccessCallback?: (dashboardUrl?: string) => void,
+  onErrorCallback?: () => void
 ) {
   const uniqueId = getNonce();
 
@@ -34,6 +34,9 @@ function runCode(
   // Get the project root directory (go up from pipeline file to project root)
   const projectRoot = path.resolve(path.dirname(filePath), "../..");
 
+  const dashboardUrlFile = path.join(os.tmpdir(), `dashboard_url_${uniqueId}.txt`);
+  const pipelineOutputLog = path.join(os.tmpdir(), `pipeline_output_${uniqueId}.log`);
+  
   writeFileSync(
     scriptPath,
     `
@@ -42,8 +45,17 @@ function runCode(
     echo "Executing code..."
     cd "${projectRoot}"
     export PYTHONPATH="${projectRoot}:$PYTHONPATH"
-    python "${filePath}"
-    if [ $? -eq 0 ]; then
+    # Capture output to extract dashboard URL
+    python "${filePath}" 2>&1 | tee "${pipelineOutputLog}"
+    RESULT=$?
+    
+    # Extract dashboard URL if present
+    grep "DASHBOARD_URL:" "${pipelineOutputLog}" | tail -1 | cut -d':' -f2- > "${dashboardUrlFile}"
+    
+    # Clean up
+    rm -f "${pipelineOutputLog}"
+    
+    if [ $RESULT -eq 0 ]; then
       touch "${successFilePath}"
     else
       touch "${errorFilePath}"
@@ -59,8 +71,8 @@ function runCode(
 function initializeFileWatcher(
   filePath: string,
   uniqueId: string,
-  onSuccessCallback?: Function,
-  onFailureCallback?: Function
+  onSuccessCallback?: (dashboardUrl?: string) => void,
+  onFailureCallback?: () => void
 ) {
   const removeLastFileFromPath = (filePath: string) => {
     let sections = filePath.split("/");
@@ -87,8 +99,21 @@ function initializeFileWatcher(
       vscode.workspace.fs.delete(uri);
       unlinkSync(scriptPath);
       watcher.dispose();
+      
+      // Try to read dashboard URL if available
+      const dashboardUrlFile = path.join(os.tmpdir(), `dashboard_url_${uniqueId}.txt`);
+      let dashboardUrl: string | undefined;
+      try {
+        if (existsSync(dashboardUrlFile)) {
+          dashboardUrl = readFileSync(dashboardUrlFile, 'utf8').trim();
+          unlinkSync(dashboardUrlFile);
+        }
+      } catch (error) {
+        // Ignore errors reading dashboard URL
+      }
+      
       if (onSuccessCallback) {
-        onSuccessCallback();
+        onSuccessCallback(dashboardUrl);
       }
     } else if (uri.fsPath.endsWith(errorFileName)) {
       vscode.workspace.fs.delete(uri);

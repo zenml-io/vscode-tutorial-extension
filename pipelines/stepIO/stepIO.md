@@ -1,7 +1,3 @@
-# Step I/O - Typed Inputs and Outputs
-
-Now let's learn how to pass data between steps with proper type annotations.
-
 ## What you'll learn
 
 - How to define typed step outputs using `Annotated` types
@@ -37,4 +33,5 @@ def count_rows(
 
 ## Try it yourself
 
-Run this pipeline to see how data flows from the `load_data` step to the `count_rows` step!
+Run this pipeline to see how data flows from the `load_data` step to the
+`count_rows` step!

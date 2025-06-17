@@ -1,7 +1,3 @@
-# Tagging - Keep Runs Organized
-
-Learn how to use tags to organize and categorize your pipeline runs.
-
 ## What you'll learn
 
 - How to add simple tags to pipelines
@@ -27,4 +23,5 @@ def tagged_pipeline():
 
 ## Try it yourself
 
-Run this pipeline multiple times and watch how the exclusive tag automatically moves to the latest run!
+Run this pipeline multiple times and watch how the exclusive tag automatically
+moves to the latest run!

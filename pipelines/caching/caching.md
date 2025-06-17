@@ -1,7 +1,3 @@
-# Caching - Smart Re-runs
-
-Learn how ZenML's caching system can save you time by avoiding redundant computations.
-
 ## What you'll learn
 
 - How to enable caching on steps
@@ -28,4 +24,5 @@ def slow_step() -> Annotated[int, "answer"]:
 
 ## Try it yourself
 
-Run this pipeline twice! The first run takes ~3 seconds, the second is instant thanks to caching.
+Run this pipeline twice! The first run takes ~3 seconds, the second is instant
+thanks to caching.
