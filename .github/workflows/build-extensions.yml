@@ -76,7 +76,7 @@ jobs:
 
       - name: Commit and push built extensions
         # Only commit on push to main/develop branches, not on PRs
-        if: github.event_name == 'push' || github.event.inputs.force_rebuild == 'true'
+        if: github.event_name == 'push' || github.event.inputs.force_rebuild
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
