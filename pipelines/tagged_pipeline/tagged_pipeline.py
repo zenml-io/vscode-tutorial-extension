@@ -50,7 +50,7 @@ def process_data(
 
 # Pipeline with cascade tags - these will be applied to all artifacts created during execution
 @pipeline(tags=["tutorial", Tag(name="experiment", cascade=True)])
-def artifact_tagging_pipeline():
+def tagged_pipeline():
     """Pipeline demonstrating various artifact tagging approaches."""
     raw_data = create_raw_data()
     processed_data = process_data(raw_data)
@@ -66,8 +66,8 @@ if __name__ == "__main__":
     logger.info("  4. Filtering and querying artifacts by tags")
 
     # Run the pipeline
-    artifact_tagging_pipeline()
+    tagged_pipeline()
 
     # Log dashboard URLs
-    log_dashboard_urls("artifact_tagging_pipeline")
+    log_dashboard_urls("tagged_pipeline")
     logger.info("Run again to see how tags accumulate across multiple runs")

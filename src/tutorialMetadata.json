@@ -17,8 +17,8 @@
       "canRunPipeline": true,
       "steps": [
         {
-          "doc": "pipelines/helloWorld/helloWorld.md",
-          "code": "pipelines/helloWorld/hello_pipeline.py"
+          "doc": "pipelines/hello_pipeline/helloWorld.md",
+          "code": "pipelines/hello_pipeline/hello_pipeline.py"
         }
       ]
     },
@@ -28,8 +28,8 @@
       "canRunPipeline": true,
       "steps": [
         {
-          "doc": "pipelines/stepIO/stepIO.md",
-          "code": "pipelines/stepIO/io_pipeline.py"
+          "doc": "pipelines/io_pipeline/stepIO.md",
+          "code": "pipelines/io_pipeline/io_pipeline.py"
         }
       ]
     },
@@ -39,8 +39,8 @@
       "canRunPipeline": true,
       "steps": [
         {
-          "doc": "pipelines/parameters/parameters.md",
-          "code": "pipelines/parameters/param_pipeline.py"
+          "doc": "pipelines/param_pipeline/parameters.md",
+          "code": "pipelines/param_pipeline/param_pipeline.py"
         }
       ]
     },
@@ -50,8 +50,8 @@
       "canRunPipeline": true,
       "steps": [
         {
-          "doc": "pipelines/tagging/tagging.md",
-          "code": "pipelines/tagging/tagged_pipeline.py"
+          "doc": "pipelines/tagged_pipeline/tagging.md",
+          "code": "pipelines/tagged_pipeline/tagged_pipeline.py"
         }
       ]
     },
@@ -61,8 +61,8 @@
       "canRunPipeline": true,
       "steps": [
         {
-          "doc": "pipelines/metadata/metadata.md",
-          "code": "pipelines/metadata/meta_pipeline.py"
+          "doc": "pipelines/meta_pipeline/metadata.md",
+          "code": "pipelines/meta_pipeline/meta_pipeline.py"
         }
       ]
     },
@@ -72,8 +72,8 @@
       "canRunPipeline": true,
       "steps": [
         {
-          "doc": "pipelines/caching/caching.md",
-          "code": "pipelines/caching/cache_pipeline.py"
+          "doc": "pipelines/cache_pipeline/caching.md",
+          "code": "pipelines/cache_pipeline/cache_pipeline.py"
         }
       ]
     },
@@ -83,8 +83,8 @@
       "canRunPipeline": true,
       "steps": [
         {
-          "doc": "pipelines/visualizations/visualizations.md",
-          "code": "pipelines/visualizations/viz_pipeline.py"
+          "doc": "pipelines/viz_pipeline/visualizations.md",
+          "code": "pipelines/viz_pipeline/viz_pipeline.py"
         }
       ]
     },
@@ -94,8 +94,8 @@
       "canRunPipeline": true,
       "steps": [
         {
-          "doc": "pipelines/fanOut/fanOut.md",
-          "code": "pipelines/fanOut/fan_pipeline.py"
+          "doc": "pipelines/fan_pipeline/fanOut.md",
+          "code": "pipelines/fan_pipeline/fan_pipeline.py"
         }
       ]
     },
@@ -105,8 +105,8 @@
       "canRunPipeline": true,
       "steps": [
         {
-          "doc": "pipelines/retries/retries.md",
-          "code": "pipelines/retries/robust_pipeline.py"
+          "doc": "pipelines/robust_pipeline/retries.md",
+          "code": "pipelines/robust_pipeline/robust_pipeline.py"
         }
       ]
     },
@@ -116,8 +116,8 @@
       "canRunPipeline": true,
       "steps": [
         {
-          "doc": "pipelines/yamlConfig/yamlConfig.md",
-          "code": "pipelines/yamlConfig/yaml_pipeline.py"
+          "doc": "pipelines/yaml_pipeline/yamlConfig.md",
+          "code": "pipelines/yaml_pipeline/yaml_pipeline.py"
         }
       ]
     },
