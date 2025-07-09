@@ -4,7 +4,10 @@ import pandas as pd
 from zenml import ArtifactConfig, Tag, add_tags, pipeline, step
 from zenml.logger import get_logger
 
-from utils import log_dashboard_urls  # type: ignore
+try:
+    from utils import log_dashboard_urls  # type: ignore
+except ImportError:
+    log_dashboard_urls = lambda name: print(f"📊 Pipeline '{name}' completed!")
 
 logger = get_logger(__name__)
 
