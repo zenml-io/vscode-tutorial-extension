@@ -41,19 +41,19 @@ jobs:
         run: |
           failed=()
           for p in \
-            "pipelines/helloWorld/hello_pipeline.py" \
-            "pipelines/caching/cache_pipeline.py" \
-            "pipelines/fanOut/fan_pipeline.py" \
-            "pipelines/metadata/meta_pipeline.py" \
-            "pipelines/parameters/param_pipeline.py" \
-            "pipelines/retries/robust_pipeline.py" \
-            "pipelines/stepIO/io_pipeline.py" \
-            "pipelines/tagging/tagged_pipeline.py" \
-            "pipelines/visualizations/viz_pipeline.py" \
-            "pipelines/yamlConfig/yaml_pipeline.py"; do
+            "pipelines/hello_pipeline/hello_pipeline.py" \
+            "pipelines/cache_pipeline/cache_pipeline.py" \
+            "pipelines/fan_pipeline/fan_pipeline.py" \
+            "pipelines/meta_pipeline/meta_pipeline.py" \
+            "pipelines/param_pipeline/param_pipeline.py" \
+            "pipelines/robust_pipeline/robust_pipeline.py" \
+            "pipelines/io_pipeline/io_pipeline.py" \
+            "pipelines/tagged_pipeline/tagged_pipeline.py" \
+            "pipelines/viz_pipeline/viz_pipeline.py" \
+            "pipelines/yaml_pipeline/yaml_pipeline.py"; do
 
             echo "Running $p…"
-              if [[ "$p" == *"retries/robust_pipeline.py" ]]; then
+              if [[ "$p" == *"robust_pipeline/robust_pipeline.py" ]]; then
                 PYTHONPATH=$GITHUB_WORKSPACE:$PYTHONPATH python "$p" || echo "⚠  robust_pipeline demo: failure expected"
               else
                 PYTHONPATH=$GITHUB_WORKSPACE:$PYTHONPATH python "$p" || failed+=("$p")

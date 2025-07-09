@@ -24,7 +24,7 @@ if __name__ == "__main__":
     logger.info("Starting YAML-configured pipeline")
     # run exactly with the YAML you wrote
     run = yaml_pipeline.with_options(
-        config_path="pipelines/yamlConfig/my_run.yaml"
+        config_path="pipelines/yaml_pipeline/my_run.yaml"
     )()
 
     # fetch artifact afterwards so users see something in the console
