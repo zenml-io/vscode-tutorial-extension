@@ -1,1 +1,0 @@
-Shows how to record useful facts about pipeline runs using metadata logging 
