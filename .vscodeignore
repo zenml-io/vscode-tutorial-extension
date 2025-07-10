@@ -11,3 +11,4 @@ vsc-extension-quickstart.md
 **/.vscode-test.*
 pipelinesBackup/
 node_modules/
+.mypy_cache/

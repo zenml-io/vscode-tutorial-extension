@@ -2,7 +2,7 @@
   "name": "zenml-color-theme",
   "displayName": "ZenML Color Theme",
   "description": "VS Code theme matching ZenML Dashboard",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "publisher": "zenml-io",
   "engines": {
     "vscode": "^1.74.0"

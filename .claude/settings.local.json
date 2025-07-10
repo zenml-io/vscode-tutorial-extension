@@ -6,7 +6,10 @@
       "Bash(npm run compile:*)",
       "Bash(npm run lint)",
       "Bash(rm:*)",
-      "Bash(npm run buildExtension:*)"
+      "Bash(npm run buildExtension:*)",
+      "Bash(find:*)",
+      "mcp__ide__getDiagnostics",
+      "Bash(code --version)"
     ],
     "deny": []
   }

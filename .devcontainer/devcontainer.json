@@ -10,7 +10,7 @@
         "workbench.startupEditor": "none"
       },
       "extensions": [
-        "zenml-io.zenml-codespace-tutorial"
+        "zenml-io.zenml-tutorial"
       ]
     }
   },

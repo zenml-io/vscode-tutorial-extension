@@ -316,6 +316,8 @@ export default class TutorialOrchestrator {
     if (this._webviewPanel) {
       this._webviewPanel.title = title;
       this._webviewPanel.webview.html = this._generateHTML(docContent);
+      // Ensure the webview is visible
+      this._webviewPanel.reveal(vscode.ViewColumn.One);
     }
   }
 

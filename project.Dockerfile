@@ -7,7 +7,7 @@ FROM zenmldocker/zenml-codespace:${ZENML_VERSION}
 ARG PROJECT_DIR_NAME
 
 # Set the working directory for the project
-WORKDIR /home/coder/extensions/zenml-io.zenml-tutorial-0.0.3/pipelines
+WORKDIR /home/coder/extensions/zenml-io.zenml-tutorial-0.0.4/pipelines
 
 # Copy the specific project's requirements file
 COPY ./${PROJECT_DIR_NAME}/requirements.txt /tmp/requirements.txt

@@ -6,7 +6,7 @@
     "url": "https://github.com/zenml-io/vscode-tutorial-extension"
   },
   "description": "Interactive ZenML pipeline tutorials",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "publisher": "zenml-io",
   "engines": {
     "vscode": "^1.90.0"
@@ -36,7 +36,7 @@
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
     "test": "vscode-test",
-    "buildExtension": "vsce package && mkdir -p .devcontainer/extensions && rm -f .devcontainer/extensions/zenml-codespace-tutorial* && mv zenml-codespace-tutorial* .devcontainer/extensions"
+    "buildExtension": "vsce package && mkdir -p .devcontainer/extensions && rm -f .devcontainer/extensions/zenml-tutorial* && mv zenml-tutorial* .devcontainer/extensions"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.7",
@@ -59,9 +59,47 @@
       {
         "command": "zenml.startTutorial",
         "title": "Start ZenML Tutorial",
-        "category": "ZenML"
+        "category": "ZenML",
+        "icon": "$(play)"
+      },
+      {
+        "command": "zenml.openHomepage",
+        "title": "Open ZenML Tutorial Homepage",
+        "category": "ZenML",
+        "icon": "$(home)"
       }
     ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "zenml.startTutorial",
+          "when": "true"
+        },
+        {
+          "command": "zenml.openHomepage",
+          "when": "true"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "zenmlTutorial",
+          "title": "ZenML Tutorial",
+          "icon": "$(book)"
+        }
+      ]
+    },
+    "views": {
+      "zenmlTutorial": [
+        {
+          "id": "zenmlTutorialView",
+          "name": "Tutorial",
+          "when": "true"
+        }
+      ]
+    },
+
     "configuration": {
       "title": "ZenML",
       "properties": {
