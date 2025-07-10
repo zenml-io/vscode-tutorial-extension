@@ -7,7 +7,7 @@
   },
   "description": "Interactive ZenML pipeline tutorials for Codespaces",
   "version": "0.0.1",
-  "publisher": "ZenML",
+  "publisher": "zenml-io",
   "engines": {
     "vscode": "^1.90.0"
   },
