@@ -1,98 +1,80 @@
-# ZenML VS Code Tutorial Extension - Developer Guide
+# Welcome to the ZenML Interactive Tutorial Extension 👋
 
-Development repository for contributors working on the ZenML VSCode Tutorial Extension.
+This VS Code extension provides an interactive, hands-on learning experience for ZenML - the open-source MLOps framework. Master ZenML fundamentals through 10 guided pipeline examples with step-by-step tutorials and one-click execution!
 
 <div style="display: flex; justify-content: center;">
   <img src=".devcontainer/assets/welcome-page.png" alt="Welcome page screenshot" width="1000" />
 </div>
 
-## 🚀 Quick Start
 
-### Prerequisites
 
-- [Node.js](https://nodejs.org/en/download/)
-- [VS Code](https://code.visualstudio.com/Download)
-- [Docker](https://www.docker.com/get-started/)
+
+## ✨ What You'll Learn
+
+- **Pipeline Fundamentals** - Create your first ZenML pipeline
+- **Data Flow** - Pass data between pipeline steps
+- **Parameters** - Make pipelines flexible with parameters
+- **Organization** - Tag and organize your pipeline runs
+- **Tracking** - Log metadata to record useful facts about runs
+- **Visualizations** - Create automatic & custom charts
+- **Performance** - Use caching and parallel processing
+- **Reliability** - Handle errors with retries and hooks
+- **Configuration** - Use YAML to separate configuration from code
+
+**10 Progressive Tutorials** that build from basic concepts to advanced ZenML patterns.
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+  <img src="assets/architecture.png" alt="Architecture"  />
+</div>
+
+## 🚀 Get Started
+
+### GitHub Codespaces (Recommended)
+
+The fastest way to get started - no local setup required.
+
+1. Click **Code ▶ Codespaces ▶ Create codespace on develop**
+2. Wait ~2 min for setup (container, dependencies, extension)
+3. The extension will launch automatically
+
+### 💻 Alternative: Local Setup
+
+**Requirements:**
+
+- [Docker Desktop](https://www.docker.com/products/docker-desktop)
+- [VS Code](https://code.visualstudio.com/)
 - [Dev Containers Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
 
-### Setup
+**Steps:**
 
-1. **Clone & install**:
+1. Clone this repo & open in VS Code
+2. Click **Reopen in Container** when prompted
+3. Extension starts automatically
 
-   ```bash
-   git clone https://github.com/zenml-io/vscode-tutorial-extension
-   cd vscode-tutorial-extension
-   npm install && npm run compile
-   ```
+## 🎓 Tutorial Structure
 
-2. **Open in VS Code** and reopen in dev container when prompted
+| Tutorial | Topic           | Skills                   |
+| -------- | --------------- | ------------------------ |
+| 1        | Hello World     | Basic pipeline creation  |
+| 2        | Step I/O        | Data flow between steps  |
+| 3        | Parameters      | Pipeline configuration   |
+| 4        | Tagging         | Run organization         |
+| 5        | Metadata        | Logging and tracking     |
+| 6        | Caching         | Performance optimization |
+| 7        | Visualizations  | Charts and plots         |
+| 8        | Fan-out/Fan-in  | Parallel processing      |
+| 9        | Retries & Hooks | Error handling           |
+| 10       | YAML Config     | Configuration management |
 
-3. **Test the extension**: Press `F5` or use Run and Debug panel → "Run Extension"
+## 🎮 How to Use
 
-**⚠️ Important**: Always run in dev container - the extension expects this environment.
+- **Run** pipelines via the “Run Pipeline” button
+- **Navigate** with Previous/Next buttons
+- **Inspect** output in the terminal and Dashboard link
+- **Experiment** by editing any example code
 
-## 🛠️ Development Workflow
+## 🛟 Getting Help
 
-### Making Changes
-
-The extension runs in two places:
-
-- **Development** (this repo)
-- **User-facing** ([vscode-tutorial repo](https://github.com/zenml-io/vscode-tutorial))
-
-**After making changes**, you need to:
-
-1. **Build extension**:
-
-   ```bash
-   npm run buildExtension
-   ```
-
-   _This packages the extension and replaces the current one in `.devcontainer/extensions/`_
-
-2. **Test in user environment**: Test changes in both GitHub Codespaces and local dev containers
-
-### File Structure
-
-- **Extension code**: Main TypeScript files
-- **Tutorial content**: `pipelines/` directory
-- **Tutorial structure**: `tutorialMetadata.json`
-- **Entry point**: `extension.ts` → `Tutorial` class
-
-### Editing Content
-
-**Quick text edits**:
-
-- Uncomment the "edit text" button in WebView HTML
-- Edit markdown files directly
-- Save (`Cmd+S`) → Reload extension (`Cmd+R`)
-
-**Adding/reorganizing steps**:
-
-- Edit `tutorialMetadata.json`
-- Each section has steps with optional `doc` (markdown) and `code` (Python) files
-
-### 🔔 Pipeline Health Checks
-
-**Workflow**: [`.github/workflows/test-pipelines.yml`](.github/workflows/test-pipelines.yml)
-
-| Trigger                                            | Action                                       | Alert                                                                             |
-| -------------------------------------------------- | -------------------------------------------- | --------------------------------------------------------------------------------- |
-| Daily @ 09:00 UTC + on push/PR to `main`/`develop` | Run all tutorial pipelines with latest ZenML | On any failure, sends a single message to `#sre-alerts` via `DISCORD_WEBHOOK_SRE` |
-
-This ensures we catch any breaking changes in ZenML or our tutorials before users do.
-
-## 🐳 Docker Image
-
-The user-facing repository uses a pre-built Docker image for faster startup.
-
-**To update the image**:
-
-1. Switch to `docker-image-build` branch
-2. Build and push following [Docker's guide](https://docs.docker.com/guides/getting-started/build-and-push-first-image/)
-3. Update `devcontainer.json` to reference new image: `"image": "zenml/tutorial:latest"`
-
-## 📚 Resources
-
-- [ZenML Documentation](https://docs.zenml.io/)
-- [VS Code Extension API](https://code.visualstudio.com/api)
+- **📖 ZenML Docs**: [docs.zenml.io](https://docs.zenml.io)
+- **💬 Community**: [ZenML Slack](https://zenml.slack.com/ssb/redirect)
+- **🐛 Issues**: [GitHub Issues](https://github.com/zenml-io/vscode-tutorial/issues)
