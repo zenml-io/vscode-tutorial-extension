@@ -1,4 +1,0 @@
-{
-  "description": "Shows how to create automatic and custom visualizations for pipeline data\n\nRequirements: `pip install matplotlib pandas scikit-learn`",
-  "index": 6
-}

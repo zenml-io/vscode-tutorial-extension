@@ -1,4 +1,0 @@
-{
-  "description": "Demonstrates how to separate configuration from code using YAML configuration files\n\nRequirements: Create a `my_run.yaml` file with:\n```yaml\nparameters:\n  name: \"ZenML Community 👋\"\n```",
-  "index": 9
-}
