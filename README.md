@@ -7,8 +7,6 @@ This VS Code extension provides an interactive, hands-on learning experience for
 </div>
 
 
-
-
 ## ✨ What You'll Learn
 
 - **Pipeline Fundamentals** - Create your first ZenML pipeline
@@ -37,7 +35,37 @@ The fastest way to get started - no local setup required.
 2. Wait ~2 min for setup (container, dependencies, extension)
 3. The extension will launch automatically
 
-### 💻 Alternative: Local Setup
+### Local Setup with Extension from Marketplace
+
+**Prerequisites:**
+- Python 3.8 or higher
+- VS Code
+
+**Steps:**
+
+1. **Set up Python virtual environment:**
+   ```bash
+   python -m venv zenml-tutorial-env
+   source zenml-tutorial-env/bin/activate  # On Windows: zenml-tutorial-env\Scripts\activate
+   ```
+
+2. **Install ZenML:**
+   ```bash
+   pip install zenml
+   ```
+
+4. **Initialize ZenML:**
+   ```bash
+   zenml init
+   ```
+
+5. **Install the extension:**
+   - Install from the [Marketplace](https://marketplace.visualstudio.com/items?itemName=zenml-io.zenml-tutorial) or search for "ZenML Tutorial" in the Extensions Marketplace
+
+6. **Launch the tutorial:**
+   - Open VS Code and the extension will launch automatically
+
+### 💻 Alternative: Local Setup with Dev Containers
 
 **Requirements:**
 

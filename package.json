@@ -1,12 +1,12 @@
 {
-  "name": "zenml-codespace-tutorial",
-  "displayName": "ZenML Codespace Tutorial",
+  "name": "zenml-tutorial",
+  "displayName": "ZenML Tutorial",
   "repository": {
     "type": "git",
-    "url": "https://github.com/zenml-io/vscode-tutorial.git"
+    "url": "https://github.com/zenml-io/vscode-tutorial-extension"
   },
-  "description": "Interactive ZenML pipeline tutorials for Codespaces",
-  "version": "0.0.2",
+  "description": "Interactive ZenML pipeline tutorials",
+  "version": "0.0.3",
   "publisher": "zenml-io",
   "engines": {
     "vscode": "^1.90.0"
@@ -46,7 +46,7 @@
     "@typescript-eslint/parser": "^7.11.0",
     "@vscode/test-cli": "^0.0.9",
     "@vscode/test-electron": "^2.4.0",
-    "@vscode/vsce": "^3.4.2",
+    "@vscode/vsce": "^3.6.0",
     "eslint": "^8.57.0",
     "typescript": "^5.4.5"
   },

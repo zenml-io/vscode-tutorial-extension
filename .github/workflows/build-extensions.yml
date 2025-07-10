@@ -41,7 +41,7 @@ jobs:
       - name: Build theme extension
         run: |
           echo "Building theme extension..."
-          cd themes && npx @vscode/vsce package --out ./zenml-color-theme-0.0.2.vsix
+          cd themes && npx @vscode/vsce package --out ./zenml-color-theme-0.0.3.vsix
 
       - name: Verify extensions were builts
         run: |
@@ -54,11 +54,11 @@ jobs:
             exit 1
           fi
           
-          if [ -f "themes/zenml-color-theme-0.0.2.vsix" ]; then
+          if [ -f "themes/zenml-color-theme-0.0.3.vsix" ]; then
             echo "Theme extension built successfully:"
-            ls -la themes/zenml-color-theme-0.0.2.vsix
+            ls -la themes/zenml-color-theme-0.0.3.vsix
           else
-            echo "ERROR: zenml-color-theme-0.0.2.vsix not found"
+            echo "ERROR: zenml-color-theme-0.0.3.vsix not found"
             exit 1
           fi
 
@@ -66,13 +66,13 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: tutorial-extension
-          path: .devcontainer/extensions/zenml-codespace-tutorial-*.vsix
+          path: .devcontainer/extensions/zenml-tutorial-*.vsix
 
       - name: Upload theme extension artifact
         uses: actions/upload-artifact@v4
         with:
           name: theme-extension
-          path: themes/zenml-color-theme-0.0.2.vsix
+          path: themes/zenml-color-theme-0.0.3.vsix
 
       - name: Commit and push built extensions
         # Only commit on push to main/develop branches, not on PRs
@@ -82,8 +82,8 @@ jobs:
           git config --local user.name "GitHub Action"
           
           # Add the built extensions to git
-          git add .devcontainer/extensions/zenml-codespace-tutorial-*.vsix
-          git add themes/zenml-color-theme-0.0.2.vsix
+          git add .devcontainer/extensions/zenml-tutorial-*.vsix
+          git add themes/zenml-color-theme-0.0.3.vsix
           
           # Check if there are any changes to commit
           if git diff --staged --quiet; then

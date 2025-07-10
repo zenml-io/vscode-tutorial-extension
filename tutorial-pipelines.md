@@ -1,4 +1,4 @@
-# Tutorial Pipelines for Codespace
+# Tutorial Pipelines
 
 ## Overview
 
