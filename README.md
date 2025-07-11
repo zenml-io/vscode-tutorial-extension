@@ -59,10 +59,15 @@ The fastest way to get started - no local setup required.
    zenml init
    ```
 
-5. **Install the extension:**
+5. **Start the ZenML server locally:**
+   ```bash
+   zenml login --local
+   ```
+
+6. **Install the extension:**
    - Install from the [Marketplace](https://marketplace.visualstudio.com/items?itemName=zenml-io.zenml-tutorial) or search for "ZenML Tutorial" in the Extensions Marketplace
 
-6. **Launch the tutorial:**
+7. **Launch the tutorial:**
    - Open VS Code and the extension will launch automatically
 
 ### 💻 Alternative: Local Setup with Dev Containers
