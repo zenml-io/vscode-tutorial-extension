@@ -1,0 +1,54 @@
+{
+  "pipelineOrder": [
+    {
+      "index": 0,
+      "directory": "hello_pipeline",
+      "name": "Hello World"
+    },
+    {
+      "index": 1,
+      "directory": "io_pipeline",
+      "name": "Step IO"
+    },
+    {
+      "index": 2,
+      "directory": "param_pipeline",
+      "name": "Parameters"
+    },
+    {
+      "index": 3,
+      "directory": "tagged_pipeline",
+      "name": "Tagging"
+    },
+    {
+      "index": 4,
+      "directory": "meta_pipeline",
+      "name": "Metadata"
+    },
+    {
+      "index": 5,
+      "directory": "cache_pipeline",
+      "name": "Caching"
+    },
+    {
+      "index": 6,
+      "directory": "viz_pipeline",
+      "name": "Visualizations"
+    },
+    {
+      "index": 7,
+      "directory": "fan_pipeline",
+      "name": "Fan Out Fan In"
+    },
+    {
+      "index": 8,
+      "directory": "robust_pipeline",
+      "name": "Retries and Hooks"
+    },
+    {
+      "index": 9,
+      "directory": "yaml_pipeline",
+      "name": "YAML Config"
+    }
+  ]
+}
