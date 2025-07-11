@@ -31,11 +31,21 @@ export async function activate(context: vscode.ExtensionContext) {
 
     // Register sidebar provider
     const sidebarProvider = new ZenmlSidebarProvider(orchestrator);
-    const treeView = vscode.window.createTreeView('zenmlTutorialView', {
-      treeDataProvider: sidebarProvider
-    });
-    context.subscriptions.push(treeView);
-    console.log("Registered sidebar provider");
+    try {
+      const treeView = vscode.window.createTreeView('zenmlTutorialView', {
+        treeDataProvider: sidebarProvider,
+        showCollapseAll: false,
+        canSelectMany: false
+      });
+      context.subscriptions.push(treeView);
+      console.log("Registered sidebar provider successfully");
+      
+      // Force refresh to ensure the sidebar is populated
+      sidebarProvider.refresh();
+    } catch (error) {
+      console.error("Failed to register sidebar provider:", error);
+      vscode.window.showErrorMessage(`Failed to register sidebar: ${error}`);
+    }
 
     // Register command to start tutorial
     const startCommand = vscode.commands.registerCommand("zenml.startTutorial", () => {
@@ -51,32 +61,44 @@ export async function activate(context: vscode.ExtensionContext) {
       orchestrator.openSection(0); // Open welcome screen
     });
 
+
+
     context.subscriptions.push(startCommand, homepageCommand);
     console.log("Registered commands:", ["zenml.startTutorial", "zenml.openHomepage"]);
 
-    // Check if this is the first time the extension is being activated
-    const isFirstTime = !context.globalState.get<boolean>("zenml.hasBeenActivated", false);
-    const isCodespace = process.env.CODESPACES === "true";
-    const isTutorialEnabled = process.env.ZENML_ENABLE_TUTORIAL === "true";
+    // Check if auto-open tutorial is enabled
+    const autoOpenTutorial = vscode.workspace
+      .getConfiguration("zenml")
+      .get<boolean>("autoOpenTutorial", true);
+    
+    console.log("Auto-open tutorial setting:", autoOpenTutorial);
 
-    console.log("Environment check:", {
-      isFirstTime,
-      isCodespace,
-      isTutorialEnabled
-    });
-
-    // Auto-start the tutorial only on first installation or in codespaces
-    if (isFirstTime || isCodespace || isTutorialEnabled) {
-      console.log("Auto-starting tutorial");
-      orchestrator.start();
+    if (autoOpenTutorial) {
+      console.log("Auto-opening ZenML tutorial homepage");
       
-      // Mark as activated for future sessions
-      if (isFirstTime) {
-        await context.globalState.update("zenml.hasBeenActivated", true);
-        console.log("Marked extension as activated");
-      }
+      // Show welcome message and open homepage
+      vscode.window.showInformationMessage(
+        "Welcome to ZenML! 🎉 Opening the tutorial homepage...",
+        "Get Started",
+        "Don't Show Again"
+      ).then((selection) => {
+        if (selection === "Get Started") {
+          orchestrator.start();
+        } else if (selection === "Don't Show Again") {
+          // Disable auto-open for future sessions
+          vscode.workspace.getConfiguration("zenml").update("autoOpenTutorial", false, true);
+          vscode.window.showInformationMessage(
+            "Auto-open disabled. You can re-enable it in Settings or use the sidebar button to open the tutorial."
+          );
+        }
+      });
+      
+      // Auto-start homepage with slight delay to ensure everything is ready
+      setTimeout(() => {
+        orchestrator.start();
+      }, 500);
     } else {
-      console.log("Not auto-starting tutorial");
+      console.log("Auto-open tutorial is disabled by user setting");
     }
     console.log("ZenML Tutorial extension activation completed successfully");
   } catch (error) {

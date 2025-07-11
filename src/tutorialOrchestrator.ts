@@ -61,7 +61,7 @@ export default class TutorialOrchestrator {
 
   public start() {
     this._loadProgress();
-    this._closeSidebar();
+    // Removed _closeSidebar() to keep the primary sidebar visible
     this._initializeRestoreCodeButtonListeners();
     this._closeAllTerminals();
     this._initializeTutorialTerminalClosedListener();

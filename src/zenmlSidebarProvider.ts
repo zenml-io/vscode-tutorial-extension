@@ -8,41 +8,56 @@ export class ZenmlSidebarProvider implements vscode.TreeDataProvider<SidebarItem
   constructor(private orchestrator: TutorialOrchestrator) {
   }
 
+  private _createDefaultItems(): SidebarItem[] {
+    return [
+      new SidebarItem(
+        'Welcome to ZenML Tutorial!',
+        'Interactive tutorial introduction',
+        vscode.TreeItemCollapsibleState.None,
+        undefined,
+        'info'
+      ),
+      new SidebarItem(
+        'Open Homepage',
+        'Open the tutorial homepage',
+        vscode.TreeItemCollapsibleState.None,
+        {
+          command: 'zenml.openHomepage',
+          title: 'Open Homepage',
+          arguments: []
+        },
+        'home'
+      )
+    ];
+  }
+
   refresh(): void {
     this._onDidChangeTreeData.fire();
   }
 
   getTreeItem(element: SidebarItem): vscode.TreeItem {
-    return element;
+    try {
+      return element;
+    } catch (error) {
+      console.error('Error in getTreeItem:', error);
+      // Return a minimal tree item in case of error
+      return new vscode.TreeItem(element.label || 'Error', vscode.TreeItemCollapsibleState.None);
+    }
   }
 
   getChildren(element?: SidebarItem): Thenable<SidebarItem[]> {
-    if (!element) {
-      const items = [
-        new SidebarItem(
-          'Welcome to ZenML Tutorial!',
-          'Interactive tutorial introduction',
-          vscode.TreeItemCollapsibleState.None,
-          undefined,
-          'info'
-        ),
-        new SidebarItem(
-          'Open Homepage',
-          'Open the tutorial homepage',
-          vscode.TreeItemCollapsibleState.None,
-          {
-            command: 'zenml.openHomepage',
-            title: 'Open Homepage',
-            arguments: []
-          },
-          'home'
-        )
-      ];
+    try {
+              if (!element) {
+          const items = this._createDefaultItems();
+          return Promise.resolve(items);
+        }
       
-      return Promise.resolve(items);
+      return Promise.resolve([]);
+    } catch (error) {
+      console.error('Error in getChildren:', error);
+      // Return basic items even if there's an error
+      return Promise.resolve(this._createDefaultItems());
     }
-    
-    return Promise.resolve([]);
   }
 }
 

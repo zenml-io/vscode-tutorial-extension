@@ -101,6 +101,39 @@ The fastest way to get started - no local setup required.
 - **Inspect** output in the terminal and Dashboard link
 - **Experiment** by editing any example code
 
+## ⚙️ Extension Configuration
+
+### Auto-Open Tutorial
+
+By default, the tutorial homepage opens automatically when you start VS Code. You can control this behavior:
+
+#### 🔧 Quick Disable
+When the welcome message appears, click **"Don't Show Again"** to disable auto-opening.
+
+#### 🔧 Settings UI
+1. Open VS Code Settings (`Ctrl+,` or `Cmd+,`)
+2. Search for "zenml"
+3. Toggle **"Auto Open Tutorial"** on/off
+
+#### 🔧 Settings JSON
+Add to your VS Code settings:
+```json
+{
+  "zenml.autoOpenTutorial": false
+}
+```
+
+**Note**: You can always access the tutorial manually via the ZenML sidebar (book icon) or Command Palette (`Ctrl+Shift+P` → "ZenML: Open ZenML Tutorial Homepage").
+
+### Dashboard URL
+
+Configure the ZenML dashboard URL for pipeline run links:
+```json
+{
+  "zenml.dashboardUrl": "http://localhost:8237"
+}
+```
+
 ## 🛟 Getting Help
 
 - **📖 ZenML Docs**: [docs.zenml.io](https://docs.zenml.io)
