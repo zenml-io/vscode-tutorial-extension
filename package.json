@@ -6,7 +6,7 @@
     "url": "https://github.com/zenml-io/vscode-tutorial-extension"
   },
   "description": "Interactive ZenML pipeline tutorials with step-by-step guidance and one-click execution",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "publisher": "zenml-io",
   "engines": {
     "vscode": "^1.90.0"
@@ -45,7 +45,7 @@
     "@types/vscode": "^1.90.0",
     "@typescript-eslint/eslint-plugin": "^7.14.1",
     "@typescript-eslint/parser": "^7.11.0",
-    "@vscode/test-cli": "^0.1.1",
+    "@vscode/test-cli": "^0.0.9",
     "@vscode/test-electron": "^2.4.0",
     "@vscode/vsce": "^3.6.0",
     "eslint": "^8.57.0",

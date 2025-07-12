@@ -9,7 +9,7 @@ function getExtensionVersion(): string {
     return packageJson.version;
   } catch (error) {
     console.warn("Could not read package.json version, using fallback", error);
-    return "0.1.4"; // Fallback version
+    return "0.1.5"; // Fallback version
   }
 }
 
