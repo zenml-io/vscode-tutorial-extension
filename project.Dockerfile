@@ -1,13 +1,15 @@
 ARG ZENML_VERSION=latest
 ARG PROJECT_DIR_NAME
+ARG EXTENSION_VERSION=0.1.4
 
 FROM zenmldocker/zenml-codespace:${ZENML_VERSION}
 
 # Set build arguments again for use in subsequent commands
 ARG PROJECT_DIR_NAME
+ARG EXTENSION_VERSION
 
 # Set the working directory for the project
-WORKDIR /home/coder/extensions/zenml-io.zenml-tutorial-0.1.1/pipelines
+WORKDIR /home/coder/extensions/zenml-io.zenml-tutorial-${EXTENSION_VERSION}-universal/pipelines
 
 # Copy the specific project's requirements file
 COPY ./${PROJECT_DIR_NAME}/requirements.txt /tmp/requirements.txt

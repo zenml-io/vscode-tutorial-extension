@@ -110,7 +110,13 @@ The fastest way to get started - no local setup required.
 
 ### Auto-Open Tutorial
 
-By default, the tutorial homepage opens automatically when you start VS Code. You can control this behavior:
+The tutorial homepage opens automatically when you start VS Code in the following scenarios:
+- **On first install** (always opens the first time you install the extension)
+- **In GitHub Codespaces** (when `CODESPACES=true`)
+- **When tutorial is enabled** (when `ZENML_ENABLE_TUTORIAL=true`)
+- **When user setting is enabled** (see configuration options below)
+
+You can control the user preference behavior:
 
 #### 🔧 Quick Disable
 When the welcome message appears, click **"Don't Show Again"** to disable auto-opening.
@@ -121,14 +127,41 @@ When the welcome message appears, click **"Don't Show Again"** to disable auto-o
 3. Toggle **"Auto Open Tutorial"** on/off
 
 #### 🔧 Settings JSON
-Add to your VS Code settings:
+Add to your VS Code settings to enable auto-open (disabled by default):
 ```json
 {
-  "zenml.autoOpenTutorial": false
+  "zenml.autoOpenTutorial": true
 }
 ```
 
 **Note**: You can always access the tutorial manually via the ZenML sidebar (book icon) or Command Palette (`Ctrl+Shift+P` → "ZenML: Open ZenML Tutorial Homepage").
+
+#### 📖 Manual Tutorial Access
+
+If the tutorial doesn't open automatically, you can easily access it manually:
+
+**Method 1: Using the ZenML Tutorial Sidebar**
+1. Look for the ZenML Tutorial icon (📖) in the Activity Bar (left side of VS Code)
+2. Click on it to open the tutorial panel
+3. Click "Open Homepage" to start the tutorial
+
+![Tutorial Sidebar](assets/tutorial-sidebar.png)
+
+**Method 2: Using the Main Sidebar**
+1. Open the main VS Code sidebar (Explorer view)
+2. Scroll down to find "ZenML Tutorial" in the extensions list
+3. Click on it to access the tutorial
+
+![Main Sidebar](assets/main-sidebar.png)
+
+**Method 3: Using Command Palette**
+1. Press `Ctrl+Shift+P` (or `Cmd+Shift+P` on Mac)
+2. Type "ZenML: Open ZenML Tutorial Homepage"
+3. Press Enter
+
+Once opened, you'll see the welcome screen:
+
+![Tutorial Welcome Screen](assets/tutorial-welcome.png)
 
 ### Dashboard URL
 
