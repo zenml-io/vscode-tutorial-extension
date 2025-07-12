@@ -1,7 +1,7 @@
 FROM python:3.11.9-slim-bookworm
 
 # Set custom bash prompt
-RUN echo "PS1='ZenML Codespace Tutorial$ '" >> /root/.bashrc
+RUN echo "PS1='ZenML Tutorial$ '" >> /root/.bashrc
 
 # Install git (dev only)
 RUN apt-get -y update

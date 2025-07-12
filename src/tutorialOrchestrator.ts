@@ -24,10 +24,22 @@ export default class TutorialOrchestrator {
   private _pipelineRunning: boolean = false;
   private _completedTutorials: Set<number> = new Set();
 
+
   private _getDashboardUrl(runId?: string): string {
+    // Determine appropriate default URL based on environment
+    const isCodespace = process.env.CODESPACES === "true";
+    const isTutorialEnabled = process.env.ZENML_ENABLE_TUTORIAL === "true";
+    const isRemoteEnvironment = vscode.env.remoteName !== undefined;
+    
+    // Use cloud URL for codespaces, local URL for local environments
+    const defaultUrl = (isCodespace || isTutorialEnabled || isRemoteEnvironment) 
+      ? "https://cloud.zenml.io" 
+      : "http://127.0.0.1:8237";
+    
     const baseUrl = vscode.workspace
       .getConfiguration("zenml")
-      .get<string>("dashboardUrl", "https://cloud.zenml.io");
+      .get<string>("dashboardUrl", defaultUrl);
+    
     // If we have a run ID, show specific run, otherwise show pipelines page
     if (runId) {
       return `${baseUrl}/workspaces/default/runs/${runId}`;
@@ -49,7 +61,7 @@ export default class TutorialOrchestrator {
 
   public start() {
     this._loadProgress();
-    this._closeSidebar();
+    // Removed _closeSidebar() to keep the primary sidebar visible
     this._initializeRestoreCodeButtonListeners();
     this._closeAllTerminals();
     this._initializeTutorialTerminalClosedListener();
@@ -304,6 +316,8 @@ export default class TutorialOrchestrator {
     if (this._webviewPanel) {
       this._webviewPanel.title = title;
       this._webviewPanel.webview.html = this._generateHTML(docContent);
+      // Ensure the webview is visible
+      this._webviewPanel.reveal(vscode.ViewColumn.One);
     }
   }
 

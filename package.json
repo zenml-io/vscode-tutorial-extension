@@ -1,12 +1,12 @@
 {
-  "name": "zenml-codespace-tutorial",
-  "displayName": "ZenML Codespace Tutorial",
+  "name": "zenml-tutorial",
+  "displayName": "ZenML Tutorial",
   "repository": {
     "type": "git",
-    "url": "https://github.com/zenml-io/vscode-tutorial.git"
+    "url": "https://github.com/zenml-io/vscode-tutorial-extension"
   },
-  "description": "Interactive ZenML pipeline tutorials for Codespaces",
-  "version": "0.0.2",
+  "description": "Interactive ZenML pipeline tutorials with step-by-step guidance and one-click execution",
+  "version": "0.1.6",
   "publisher": "zenml-io",
   "engines": {
     "vscode": "^1.90.0"
@@ -26,7 +26,8 @@
   "icon": "assets/zenml-icon.png",
   "license": "Apache-2.0",
   "activationEvents": [
-    "onStartupFinished"
+    "onStartupFinished",
+    "onView:zenmlTutorialView"
   ],
   "main": "./out/extension.js",
   "scripts": {
@@ -36,7 +37,7 @@
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
     "test": "vscode-test",
-    "buildExtension": "vsce package && mkdir -p .devcontainer/extensions && rm -f .devcontainer/extensions/zenml-codespace-tutorial* && mv zenml-codespace-tutorial* .devcontainer/extensions"
+    "buildExtension": "vsce package && mkdir -p .devcontainer/extensions && rm -f .devcontainer/extensions/zenml-tutorial* && mv zenml-tutorial* .devcontainer/extensions"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.7",
@@ -46,7 +47,7 @@
     "@typescript-eslint/parser": "^7.11.0",
     "@vscode/test-cli": "^0.0.9",
     "@vscode/test-electron": "^2.4.0",
-    "@vscode/vsce": "^3.4.2",
+    "@vscode/vsce": "^3.6.0",
     "eslint": "^8.57.0",
     "typescript": "^5.4.5"
   },
@@ -59,9 +60,47 @@
       {
         "command": "zenml.startTutorial",
         "title": "Start ZenML Tutorial",
-        "category": "ZenML"
+        "category": "ZenML",
+        "icon": "$(play)"
+      },
+      {
+        "command": "zenml.openHomepage",
+        "title": "Open ZenML Tutorial Homepage",
+        "category": "ZenML",
+        "icon": "$(home)"
       }
     ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "zenml.startTutorial",
+          "when": "true"
+        },
+        {
+          "command": "zenml.openHomepage",
+          "when": "true"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "zenmlTutorial",
+          "title": "ZenML Tutorial",
+          "icon": "$(book)"
+        }
+      ]
+    },
+    "views": {
+      "zenmlTutorial": [
+        {
+          "id": "zenmlTutorialView",
+          "name": "Tutorial",
+          "when": "true"
+        }
+      ]
+    },
+
     "configuration": {
       "title": "ZenML",
       "properties": {
@@ -69,6 +108,11 @@
           "type": "string",
           "default": "http://localhost:8080",
           "description": "Base URL for the ZenML dashboard"
+        },
+        "zenml.autoOpenTutorial": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically open the ZenML tutorial homepage when starting VS Code"
         }
       }
     },
