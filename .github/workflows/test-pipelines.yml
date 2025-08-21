@@ -54,7 +54,7 @@ jobs:
         run: |
           source .venv/bin/activate
           zenml init
-          zenml integration install aws s3 -y
+          zenml integration install aws s3 -y --uv
 
       - name: Run all tutorial pipelines
         id: run_all
