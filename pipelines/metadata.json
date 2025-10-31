@@ -3,52 +3,62 @@
     {
       "index": 0,
       "directory": "hello_pipeline",
-      "name": "Hello World"
+      "name": "Hello World",
+      "deployable": true
     },
     {
       "index": 1,
       "directory": "io_pipeline",
-      "name": "Step IO"
+      "name": "Step IO",
+      "deployable": true
     },
     {
       "index": 2,
       "directory": "param_pipeline",
-      "name": "Parameters"
+      "name": "Parameters",
+      "deployable": true
     },
     {
       "index": 3,
       "directory": "tagged_pipeline",
-      "name": "Tagging"
+      "name": "Tagging",
+      "deployable": false
     },
     {
       "index": 4,
       "directory": "meta_pipeline",
-      "name": "Metadata"
+      "name": "Metadata",
+      "deployable": true
     },
     {
       "index": 5,
       "directory": "cache_pipeline",
-      "name": "Caching"
+      "name": "Caching",
+      "deployable": false
     },
     {
       "index": 6,
       "directory": "viz_pipeline",
-      "name": "Visualizations"
+      "name": "Visualizations",
+      "deployable": false
     },
     {
       "index": 7,
       "directory": "fan_pipeline",
-      "name": "Fan Out Fan In"
+      "name": "Fan Out Fan In",
+      "deployable": false
     },
     {
       "index": 8,
       "directory": "robust_pipeline",
-      "name": "Retries and Hooks"
+      "name": "Retries and Hooks",
+      "deployable": false
     },
     {
       "index": 9,
       "directory": "yaml_pipeline",
-      "name": "YAML Config"
+      "name": "YAML Config",
+      "deployable": false
     }
   ]
 }
