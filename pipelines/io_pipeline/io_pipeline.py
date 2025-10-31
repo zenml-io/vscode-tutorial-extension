@@ -31,9 +31,10 @@ def count_rows(
 
 
 @pipeline
-def io_pipeline():
+def io_pipeline() -> int:
     features, labels = load_data()
-    count_rows(features, labels)
+    row_count = count_rows(features, labels)
+    return row_count
 
 
 if __name__ == "__main__":

@@ -21,8 +21,9 @@ def compute_accuracy() -> Annotated[float, "accuracy_metric"]:
 
 
 @pipeline
-def meta_pipeline():
-    compute_accuracy()
+def meta_pipeline() -> float:
+    accuracy = compute_accuracy()
+    return accuracy
 
 
 if __name__ == "__main__":

@@ -19,8 +19,9 @@ def multiply(number: int, factor: int = 2) -> Annotated[int, "product"]:
 
 
 @pipeline
-def param_pipeline(number: int = 3, factor: int = 2):
-    multiply(number=number, factor=factor)
+def param_pipeline(number: int = 3, factor: int = 2) -> int:
+    result = multiply(number=number, factor=factor)
+    return result
 
 
 if __name__ == "__main__":

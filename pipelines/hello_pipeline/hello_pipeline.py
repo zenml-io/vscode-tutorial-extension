@@ -16,8 +16,9 @@ def say_hello() -> str:
 
 
 @pipeline
-def hello_pipeline():
-    say_hello()
+def hello_pipeline() -> str:
+    message = say_hello()
+    return message
 
 
 if __name__ == "__main__":
